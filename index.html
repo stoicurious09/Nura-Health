@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NURA — a family's map through recovery</title>
+<meta name="description" content="NURA turns a family's scattered medical reports into understanding — evidence-graded, cited, built for the son or daughter coordinating a parent's recovery.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%AB%80%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f7f6f3; --surface: #fdfdfc; --ink: #1d1c1a; --ink2: #57534c; --muted: #8a867e;
+    --line: #e7e4dd; --accent: #0e7a6c; --accent-deep: #0b5f55; --wash: #e9f3f1;
+    --data: #2a78d6; --good-ink: #006300;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121211; --surface: #1c1b1a; --ink: #f2f0ec; --ink2: #c4c0b8; --muted: #8a867e;
+      --line: #2e2d2a; --accent: #45c0ab; --accent-deep: #6fd3c2; --wash: #16302b;
+      --data: #3987e5; --good-ink: #4fc24f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); margin: 0;
+    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem; }
+  h1, h2, h3 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    line-height: 1.15; text-wrap: balance; margin: 0; }
+  a { color: var(--accent-deep); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  p { margin: 0 0 1.1rem; }
+  .rule { border: 0; border-top: 1px solid var(--line); margin: 3rem 0; }
+
+  /* HERO */
+  .hero { padding: 5rem 0 3.5rem; }
+  .hero .mark { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-weight: 650; font-size: 1.05rem; color: var(--accent-deep); letter-spacing: 0.03em;
+    margin-bottom: 2.2rem; opacity: 0; animation: rise 0.7s ease-out 0.05s forwards; }
+  .hero h1 { font-size: clamp(2.1rem, 5vw, 3.1rem); font-weight: 600; letter-spacing: -0.015em;
+    opacity: 0; animation: rise 0.8s ease-out 0.15s forwards; }
+  .hero .lede { font-size: 1.18rem; color: var(--ink2); margin-top: 1.2rem; max-width: 40rem;
+    opacity: 0; animation: rise 0.8s ease-out 0.32s forwards; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .hero .mark, .hero h1, .hero .lede { animation: none; opacity: 1; } }
+
+  /* SPARKLINE STRIP */
+  .strip { display: flex; gap: 28px; flex-wrap: wrap; margin: 2.6rem 0 0.4rem; padding: 1.1rem 1.3rem;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+  .stat { flex: 1; min-width: 140px; }
+  .stat .n { font-size: 1.5rem; font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+
+  /* STORY */
+  .story { padding: 1rem 0 1rem; }
+  .story h2 { font-size: 1.6rem; font-weight: 600; margin: 0 0 0.9rem; }
+  .story p { font-size: 1.02rem; color: var(--ink2); }
+  .story b { color: var(--ink); font-weight: 600; }
+  .signoff { font-style: italic; color: var(--ink2); margin-top: 1.4rem; }
+
+  /* PRINCIPLES */
+  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 1.6rem 0; }
+  @media (max-width: 620px) { .principles { grid-template-columns: 1fr; } }
+  .p-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.2rem; }
+  .p-card .k { font-size: 0.68rem; font-weight: 650; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .p-card h3 { font-size: 1.02rem; font-weight: 650; margin-bottom: 0.4rem; font-family: system-ui, sans-serif; }
+  .p-card p { font-size: 0.88rem; color: var(--ink2); margin: 0; }
+
+  /* DOC LIBRARY */
+  .lib h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .lib .sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.6rem; }
+  .grp { margin-bottom: 1.8rem; }
+  .grp .glabel { font-size: 0.7rem; font-weight: 650; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.6rem; }
+  .doc { display: flex; gap: 14px; align-items: flex-start; padding: 1rem 1.1rem; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 10px; text-decoration: none; color: var(--ink); margin-bottom: 10px;
+    transition: border-color 0.15s, transform 0.15s; }
+  .doc:hover { border-color: var(--accent); transform: translateX(2px); }
+  .doc:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .doc .emoji { font-size: 1.5rem; line-height: 1; margin-top: 2px; }
+  .doc .t { font-weight: 650; font-size: 1rem; margin-bottom: 2px; }
+  .doc .d { font-size: 0.86rem; color: var(--ink2); }
+  .doc .arrow { margin-left: auto; color: var(--muted); align-self: center; font-size: 1.1rem; }
+
+  /* FOOTER */
+  footer { padding: 2.5rem 0 4rem; }
+  footer .rule-box { background: var(--wash); border-left: 3px solid var(--accent); padding: 1rem 1.2rem;
+    border-radius: 0 8px 8px 0; font-size: 0.92rem; color: var(--ink2); margin-bottom: 1.6rem; }
+  footer .rule-box b { color: var(--ink); }
+  footer .meta { font-size: 0.8rem; color: var(--muted); }
+  footer .meta a { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="mark">NURA</div>
+    <h1>A map through recovery, for the family holding it together.</h1>
+    <p class="lede">When someone you love comes home from a hospital bed, the medicine doesn't stop — the understanding does. NURA is a family health-intelligence platform built to close that gap: reports become a picture, a picture becomes foresight, foresight becomes a life saved.</p>
+  </section>
+
+  <div class="strip">
+    <div class="stat"><div class="n">27</div><div class="l">evidence-graded claims</div></div>
+    <div class="stat"><div class="n">55+</div><div class="l">primary sources cited</div></div>
+    <div class="stat"><div class="n">23</div><div class="l">cardiac rehab centres, all of India</div></div>
+    <div class="stat"><div class="n">₹5L</div><div class="l">build budget, gate by gate</div></div>
+  </div>
+
+  <hr class="rule">
+
+  <section class="story">
+    <h2>Why this exists</h2>
+    <p>On 3 March 2026, Neelam had a severe heart attack. She survived — four stents, an angiography that stressed her kidneys, a body that needed a cardiologist, a nephrologist, a hepatologist, and a family with no medical training to hold the whole picture together. Her son had a laptop and no idea what a rising creatinine meant.</p>
+    <p>That gap — between what a specialist knows about one organ and what a family needs to know about a whole person — is where NURA lives. <b>Not a chatbot. Not a records drawer.</b> A curated, cited, evidence-graded intelligence layer that explains what's happening, tracks what's trending, and prepares a family for the next conversation with the person who can actually help: the doctor.</p>
+    <p class="signoff">— for Neelam, and every family sitting in a hospital corridor trying to understand.</p>
+  </section>
+
+  <div class="principles">
+    <div class="p-card"><div class="k">Evidence, not opinion</div><h3>Every claim, cited</h3><p>Multi-source corroborated — guideline, meta-analysis, cohort. No insight ships on a single paper.</p></div>
+    <div class="p-card"><div class="k">The doctor stays the hero</div><h3>We prepare, never prescribe</h3><p>NURA explains and organizes. It never diagnoses or changes treatment — every insight ends at the doctor's desk.</p></div>
+    <div class="p-card"><div class="k">Trends over values</div><h3>Direction is the signal</h3><p>One number rarely means much. Where it's headed — that's where the foresight is.</p></div>
+  </div>
+
+  <hr class="rule">
+
+  <section class="lib">
+    <h2>The work so far</h2>
+    <p class="sub">Six documents, one investigation — research, strategy, science, and the product vision it all points to.</p>
+
+    <div class="grp">
+      <div class="glabel">Start here</div>
+      <a class="doc" href="team-brief.html">
+        <span class="emoji">🧠</span>
+        <span><span class="t">Team Brief</span><br><span class="d">Everything we've learned, on one page — market, science, competitors, the two entry paths, the rules we never break.</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div class="grp">
+      <div class="glabel">Strategy</div>
+      <a class="doc" href="strategy-report.html">
+        <span class="emoji">🫀</span>
+        <span><span class="t">Strategy Report</span><br><span class="d">Market sizing, competitive landscape, pricing benchmark, and the viability verdict.</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="doc" href="entry-strategy.html">
+        <span class="emoji">⚖️</span>
+        <span><span class="t">Entry Strategy</span><br><span class="d">Porter's Five Forces, SWOT, and Blue Ocean analysis of the B2C vs. clinic-channel question.</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div class="grp">
+      <div class="glabel">Evidence</div>
+      <a class="doc" href="biomarker-compendium.html">
+        <span class="emoji">🔬</span>
+        <span><span class="t">Biomarker Evidence Compendium</span><br><span class="d">The science: biomarkers and lifestyle levers linked to risk and recovery, each claim graded and sourced.</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div class="grp">
+      <div class="glabel">Execution</div>
+      <a class="doc" href="execution-playbook.html">
+        <span class="emoji">🧭</span>
+        <span><span class="t">Execution Playbook</span><br><span class="d">The offering, feature roadmap, team plan, input ladder, pricing, and the ₹5L budget.</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div class="grp">
+      <div class="glabel">Product vision</div>
+      <a class="doc" href="dashboard-concept.html">
+        <span class="emoji">💠</span>
+        <span><span class="t">Dashboard Concept</span><br><span class="d">A working demo of the family Health Picture — body-system analytics, data-strength meters, evidence-graded insights.</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <footer>
+    <div class="rule-box"><b>NURA explains and prepares — it never diagnoses, prescribes, or changes treatment.</b> Every insight is built to end at a doctor's desk, by design.</div>
+    <div class="meta">NURA · a family health-intelligence project · <a href="evidence-index.json">evidence index (JSON)</a></div>
+  </footer>
+
+</div>
+</body>
+</html>

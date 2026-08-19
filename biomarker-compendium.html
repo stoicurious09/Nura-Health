@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An evidence-graded library connecting biomarkers and daily habits to risk, recovery, and longevity — every claim corroborated across multiple sources, with citations.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%AC%3C/text%3E%3C/svg%3E">
+<title>NURA — Biomarker Evidence Compendium v1</title>
+<style>
+  :root {
+    --bg: #faf9f7; --surface: #ffffff; --ink: #1d1c1a; --ink2: #57534c; --muted: #8a867e;
+    --line: #e7e4dd; --accent: #0e7a6c; --accent-deep: #0b5f55; --wash: #edf5f3;
+    --flag: #d03b3b; --flag-wash: #fbeeee; --good: #006300;
+    --ga: #0e7a6c; --gb: #2a78d6; --gc: #8a867e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141413; --surface: #1d1c1b; --ink: #f2f0ec; --ink2: #c4c0b8; --muted: #8a867e;
+      --line: #31302d; --accent: #45c0ab; --accent-deep: #6fd3c2; --wash: #17302b;
+      --flag: #e66767; --flag-wash: #33201f; --good: #0ca30c;
+      --ga: #45c0ab; --gb: #3987e5; --gc: #8a867e;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141413; --surface: #1d1c1b; --ink: #f2f0ec; --ink2: #c4c0b8; --muted: #8a867e;
+    --line: #31302d; --accent: #45c0ab; --accent-deep: #6fd3c2; --wash: #17302b;
+    --flag: #e66767; --flag-wash: #33201f; --good: #0ca30c;
+    --ga: #45c0ab; --gb: #3987e5; --gc: #8a867e;
+  }
+  body { background: var(--bg); color: var(--ink); margin: 0;
+    font: 16px/1.62 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 47rem; margin: 0 auto; padding: 3.5rem 1.25rem 6rem; }
+  h1, h2, h3 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    line-height: 1.2; text-wrap: balance; margin: 0; }
+  h1 { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.01em; }
+  h2 { font-size: 1.65rem; font-weight: 600; margin: 3rem 0 0.4rem; }
+  h2 .sys { color: var(--muted); font-size: 1rem; font-family: system-ui, sans-serif; font-weight: 500; margin-left: 8px; }
+  h3 { font-size: 1.05rem; font-weight: 650; margin: 0; font-family: system-ui, sans-serif; }
+  p { margin: 0 0 1rem; }
+  .eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 0.6rem; }
+  .kicker { color: var(--muted); font-size: 0.85rem; margin-top: 1rem; }
+  .rule { border: 0; border-top: 1px solid var(--line); margin: 2.4rem 0; }
+  a { color: var(--accent-deep); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  .note { background: var(--wash); border-left: 3px solid var(--accent); padding: 1rem 1.2rem;
+    border-radius: 0 6px 6px 0; margin: 1.4rem 0; font-size: 0.95rem; }
+  .note p:last-child { margin-bottom: 0; }
+  .bm { background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1.1rem 1.3rem; margin: 1rem 0; }
+  .bm .head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 0.55rem; }
+  .bm .lay { color: var(--ink2); font-size: 0.93rem; font-style: italic; }
+  .row { display: grid; grid-template-columns: 7.2rem 1fr; gap: 10px; padding: 0.42rem 0;
+    border-top: 1px solid var(--line); font-size: 0.9rem; }
+  .row .k { font-size: 0.7rem; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); padding-top: 2px; }
+  .row .v { color: var(--ink); }
+  .row .v .sub { color: var(--ink2); }
+  @media (max-width: 520px) { .row { grid-template-columns: 1fr; gap: 2px; } }
+  .g { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em;
+    border-radius: 4px; padding: 0px 6px; color: #fff; vertical-align: 1px; }
+  .gA { background: var(--ga); } .gB { background: var(--gb); } .gC { background: var(--gc); }
+  .fl { color: var(--flag); font-weight: 600; }
+  .src { font-size: 0.8rem; color: var(--muted); }
+  .src a { color: var(--muted); }
+  ul, ol { padding-left: 1.3rem; margin: 0 0 1rem; } li { margin-bottom: 0.4rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; margin: 1.2rem 0; }
+  th { text-align: left; font-weight: 600; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--muted); padding: 0.5rem 0.75rem 0.5rem 0; border-bottom: 1px solid var(--muted); }
+  td { padding: 0.55rem 0.75rem 0.55rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .scroll { overflow-x: auto; } .scroll table { min-width: 600px; }
+  .skel { border: 1px dashed var(--line); border-radius: 8px; padding: 0.8rem 1.1rem; margin: 0.6rem 0;
+    font-size: 0.9rem; color: var(--ink2); }
+  .skel b { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="eyebrow">NURA · Biomarker Evidence Compendium · v1 · August 2026</p>
+  <h1>What the numbers mean — and what the evidence says they mean for a life.</h1>
+  <p class="kicker">The knowledge core of NURA's intelligence engine: peer-reviewed, guideline-grade correlations between test markers and risk, recovery, longevity, and fatality — written so a layperson understands and a junior doctor still finds it rigorous. v1 goes deep on the post-op cardiac journey (Neelam's panel); every other system carries a skeleton to be filled. This document doubles as the NotebookLM source pack core.</p>
+
+  <div class="note">
+    <p><strong>How to read this — and what NURA is allowed to do with it.</strong> Every claim carries an evidence grade: <span class="g gA">A</span> clinical guideline or meta-analysis of trials · <span class="g gB">B</span> large cohort/consortium evidence · <span class="g gC">C</span> emerging or single-study evidence. "Red flags" are conversation triggers, not diagnoses. NURA is an information and organization tool: it explains, tracks trends, and prepares questions — it never diagnoses, prescribes, or advises changing treatment. Every insight ships with "discuss with your doctor."</p>
+    <p><strong>The first principle of the engine: a trend beats a value.</strong> Nearly every marker below predicts outcomes more powerfully as a <em>direction and rate of change</em> than as a single reading — chronic-phase NT-proBNP beats admission values, HbA1c <em>swings</em> carry risk beyond level, a 25% creatinine rise means more than any one number. Most of medicine's data is read one report at a time; NURA's entire reason to exist is reading the line, not the dot.</p>
+  </div>
+
+  <h2>1 · Cardiac stress &amp; injury <span class="sys">the heart's own signals</span></h2>
+
+  <div class="bm">
+    <div class="head"><h3>NT-proBNP / BNP</h3><span class="lay">the heart's "strain gauge" — a hormone released when heart walls are stretched</span></div>
+    <div class="row"><span class="k">Ranges</span><span class="v">Roughly &lt;125 pg/mL (NT-proBNP, under 75y) is reassuring; post-MI values are read against trend, not one cut-off — prognostic cut-offs vary with age, BMI and kidney function.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> Independently predicts death after heart attack — HR ≈ 1.8 per standard-deviation rise; in the PARADISE-MI trial it predicted mortality about as well as full clinical risk scores (GRACE) by itself. <span class="g gB">B</span> Values measured in the stable phase weeks after the event predict long-term outcomes better than values from the acute admission — the trend as things settle is the signal.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">A rising level across serial tests after discharge</span>; a level that fails to fall as recovery proceeds. Either is a "call the cardiologist" trend.</span></div>
+    <div class="row"><span class="k">What helps</span><span class="v">Medication adherence (the post-MI regimen exists to unload the heart), fluid/salt discipline, cardiac rehab. Discuss any rise with the treating cardiologist.</span></div>
+    <div class="row"><span class="k">Cadence</span><span class="v">Typically checked at follow-ups and whenever breathlessness/swelling appears; serial values are the point.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://www.ahajournals.org/doi/10.1161/CIRCHEARTFAILURE.122.010259">PARADISE-MI, Circ HF</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10557200/">AMI cohort, PMC</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5346793/">Serial NT-proBNP post-MI</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>High-sensitivity troponin</h3><span class="lay">the heart-muscle injury marker — released when cardiac cells are damaged</span></div>
+    <div class="row"><span class="k">Ranges</span><span class="v">Assay-specific (99th-percentile cut-off). After a heart attack it is expected to be elevated and then fall over days–weeks.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> The defining marker of myocardial injury in universal MI definitions; persistent or re-rising elevation after the expected decline signals new injury or ongoing strain and predicts worse outcomes.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">A new rise after the post-event decline</span>, especially with chest symptoms — emergency-track, not "wait for the next appointment."</span></div>
+    <div class="row"><span class="k">Cadence</span><span class="v">Not routinely tracked at home; appears in reports during events and admissions — NURA's job is to place each value on the injury/recovery timeline so families understand it.</span></div>
+  </div>
+
+  <h2>2 · Lipids &amp; residual risk <span class="sys">what rebuilds the blockage</span></h2>
+
+  <div class="bm">
+    <div class="head"><h3>LDL cholesterol ("bad cholesterol")</h3><span class="lay">the particle count that drives artery-wall plaque — the #1 modifiable number after a stent</span></div>
+    <div class="row"><span class="k">Targets</span><span class="v">After a heart attack/stent (very-high-risk): <b>&lt;55 mg/dL</b> and ≥50% reduction from baseline; <b>≤40 mg/dL</b> if a second event occurs within 2 years (ESC/EAS; 2025 focused update reaffirms). General-population "normal" printed on lab reports is <em>not</em> the post-stent target — this single confusion causes silent undertreatment.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> Guideline-anchored, backed by trial meta-analysis: every ~39 mg/dL LDL reduction cuts major vascular events ~22%. Secondary-prevention populations routinely miss targets — therapeutic inertia is documented across registries, which is exactly the gap a family dashboard closes by asking "are we at target?" at every review.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">LDL above 55 mg/dL on any post-stent report</span>; a drift upward across two reports (adherence, dose, or diet has slipped).</span></div>
+    <div class="row"><span class="k">What helps</span><span class="v">Statin adherence (the single highest-leverage habit post-stent), diet pattern, and — via the doctor — dose escalation, ezetimibe, or newer agents (bempedoic acid, PCSK9i) if targets aren't met.</span></div>
+    <div class="row"><span class="k">Cadence</span><span class="v">4–12 weeks after any therapy change, then every 3–12 months once stable.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://www.atherosclerosis-journal.com/article/S0021-9150(25)01377-2/fulltext">2025 ESC/EAS focused update</a> · <a href="https://www.ahajournals.org/doi/10.1161/CIR.0000000000001423">2026 ACC/AHA dyslipidemia guideline</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11765577/">Therapeutic inertia, ITACARE-P</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>ApoB &amp; Lp(a)</h3><span class="lay">the deeper particle-level truth behind cholesterol numbers</span></div>
+    <div class="row"><span class="k">Ranges</span><span class="v">ApoB: secondary target once LDL is at goal (very-high-risk goal &lt;65 mg/dL, ESC). Lp(a): largely genetic — <b>measure once in a lifetime</b>; &gt;50 mg/dL (~125 nmol/L) marks added risk.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> ApoB counts the actual number of artery-damaging particles and catches residual risk that a "normal" LDL can hide — especially with diabetes or high triglycerides. <span class="g gA">A</span> 2025 ESC/EAS and 2026 ACC/AHA guidance both elevate Lp(a) to a once-in-life screening test.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">Never-measured Lp(a) in a cardiac family</span> — a one-time ₹1–2K test that reclassifies the whole family's risk (it's heritable; siblings and children should know).</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://www.ahajournals.org/doi/10.1161/CIR.0000000000001423">ACC/AHA 2026</a> · <a href="https://familyheart.org/esc-and-eas-cholesterol-guidelines-2025">Family Heart — 2025 guideline summary</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>hs-CRP</h3><span class="lay">the inflammation smoulder-detector — how "angry" the arteries still are</span></div>
+    <div class="row"><span class="k">Ranges</span><span class="v">&lt;1 mg/L low risk · 1–3 average · <b>≥2 mg/L on statin therapy = "residual inflammatory risk"</b> (measure when otherwise well — infection spikes it).</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> Landmark 2023 analysis of three trials (31,000+ statin-treated patients): inflammation (hs-CRP) predicted cardiovascular death and all-cause death <em>more strongly than remaining cholesterol</em> — top-quartile hs-CRP carried HR 2.68 for CV mortality. <span class="g gB">B</span> ~38% of treated post-MI patients still carry hs-CRP ≥2 despite controlled LDL (MACE HR ≈ 1.8). This is a marker most Indian follow-up panels don't include — a family that asks for it is ahead of the system.</span></div>
+    <div class="row"><span class="k">What helps</span><span class="v">Exercise/cardiac rehab, weight, sleep, glycemic control; treating dental/gut sources of inflammation; emerging anti-inflammatory therapies exist — a cardiologist conversation, flagged by NURA.</span></div>
+    <div class="row"><span class="k">Cadence</span><span class="v">With the lipid panel, 1–2×/year when stable.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://pubmed.ncbi.nlm.nih.gov/36893777/">Ridker et al., Lancet 2023</a> · <a href="https://academic.oup.com/eurjpc/article/33/5/752/8118886">Eur J Prev Cardiol 2026</a> · <a href="https://www.frontiersin.org/journals/cardiovascular-medicine/articles/10.3389/fcvm.2026.1758499/full">Post-STEMI residual risk, Frontiers</a></span></div>
+  </div>
+
+  <h2>3 · Kidney <span class="sys">the organ that quietly pays for the heart's crisis</span></h2>
+
+  <div class="bm">
+    <div class="head"><h3>Creatinine → eGFR</h3><span class="lay">the kidney's filtration score — how much cleaning capacity remains</span></div>
+    <div class="row"><span class="k">Ranges</span><span class="v">eGFR ≥90 normal · 60–89 mildly reduced · <b>&lt;60 for 3+ months = chronic kidney disease</b> · &lt;30 specialist territory. Always read alongside uACR (below) on the KDIGO risk grid.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gB">B</span> CKD Prognosis Consortium (millions of participants): mortality risk vs eGFR 95 — HR 1.03 at 60, <b>1.38 at 45, 3.11 at 15</b>. Kidney and heart risk compound multiplicatively with albuminuria. <span class="g gA">A</span> Post-angiography: contrast dye can injure kidneys — a creatinine rise of <b>≥0.5 mg/dL or ≥25% within 48–72h</b> of the procedure defines contrast-induced nephropathy (~7% incidence; in-hospital mortality 9.7% vs 0.5% without). This is precisely the multi-organ cascade Neelam's family lived.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">Any 25%+ creatinine rise</span> — after contrast procedures, after new medicines (see potassium card), or during illness/dehydration. Three consecutive small rises = a trend conversation with the nephrologist.</span></div>
+    <div class="row"><span class="k">What helps</span><span class="v">Hydration discipline, avoiding NSAID painkillers (a silent kidney threat common in Indian households), BP and sugar control, medication-dose review with declining eGFR.</span></div>
+    <div class="row"><span class="k">Cadence</span><span class="v">48–72h after any contrast procedure; within 1 week of starting/up-titrating ACE/ARB; then every 3–6 months, tighter if declining.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://pubmed.ncbi.nlm.nih.gov/20483451/">CKD-PC meta-analysis, Lancet</a> · <a href="https://www.ccjm.org/content/93/6/353">KDIGO risk categories primer</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2945641/">Contrast nephropathy after PCI</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>Urine albumin (uACR)</h3><span class="lay">protein leaking into urine — the earliest whisper of kidney and vessel damage</span></div>
+    <div class="row"><span class="k">Ranges</span><span class="v">&lt;30 mg/g normal · 30–300 moderately increased · &gt;300 severely increased.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gB">B</span> Risk rises log-linearly with <em>no safe threshold</em>: vs uACR 5, mortality HR 1.08 at 10, 1.38 at 30, 2.16 at 300 — and it multiplies with low eGFR. One of the cheapest, most under-ordered tests in Indian follow-up care.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">Never tested despite diabetes/hypertension/cardiac disease</span>; any category jump between tests.</span></div>
+    <div class="row"><span class="k">Cadence</span><span class="v">At least yearly in cardiac/diabetic/hypertensive members; 6-monthly if elevated.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://www.kidney-international.org/article/S0085-2538(15)54740-6/fulltext">Kidney International meta-analysis</a> · <a href="https://www.ajkd.org/article/S0272-6386%2824%2900977-6/fulltext">KDIGO 2024 / KDOQI commentary</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>Potassium &amp; sodium</h3><span class="lay">the heart's electrical chemistry — kept in a narrow band by the very drugs that protect the heart</span></div>
+    <div class="row"><span class="k">Ranges</span><span class="v">K⁺ 3.5–5.0 mmol/L (heart-failure care aims for the middle); Na⁺ 135–145 mmol/L.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> Mortality is U-shaped: both high potassium (a known effect of ACE-inhibitors/ARBs/spironolactone, worse with kidney impairment or diabetes) and low potassium (classically from diuretics; can trigger dangerous rhythms) carry excess mortality — JACC state-of-the-art review. The post-MI drug regimen itself is why this needs watching: protection and risk come in the same tablet.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">K⁺ outside 3.5–5.0</span>, especially after a medication start/change or a bout of vomiting/diarrhoea/dehydration.</span></div>
+    <div class="row"><span class="k">Cadence</span><span class="v"><span class="g gA">A</span> Within 1 week of starting/up-titrating ACE/ARB/MRA · monthly for 3 months · then quarterly for the first year — a cadence most families never learn, and the clearest example of NURA turning guidelines into reminders.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://www.jacc.org/doi/10.1016/j.jacc.2020.04.021">JACC review — potassium in HF</a> · <a href="https://www.ccjm.org/content/86/9/601">Cleveland Clinic J Med — RAAS monitoring</a> · <a href="https://www.ahajournals.org/doi/10.1161/CIRCOUTCOMES.119.006415">Monitoring after RAAS initiation</a></span></div>
+  </div>
+
+  <h2>4 · Liver <span class="sys">the drug-processing plant under new load</span></h2>
+
+  <div class="bm">
+    <div class="head"><h3>ALT / AST</h3><span class="lay">liver-cell leak markers — the liver's response to new medications and congestion</span></div>
+    <div class="row"><span class="k">Ranges</span><span class="v">Lab-specific (ALT roughly &lt;35–40 U/L). On statins, the action threshold is <b>&gt;3× the upper limit of normal</b> — mild fluctuation is common and usually benign.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> Statin practice: baseline ALT before starting, recheck 4–12 weeks after initiation or dose change, then annually; serious statin liver injury is rare. Post-cardiac patients juggle multiple hepatically-cleared drugs — the trend across the whole regimen is what matters, not one enzyme in isolation.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">&gt;3× upper limit</span>, or steadily climbing values with fatigue/jaundice/dark urine — medication review with the doctor, not silent discontinuation (stopping a statin unsupervised carries its own cardiac risk).</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://www.ncbi.nlm.nih.gov/books/NBK548236/">LiverTox — atorvastatin</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7330203/">Statin liver monitoring practice</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>GGT &amp; bilirubin</h3><span class="lay">bile-duct stress and pigment clearance — and quiet whole-body risk dials</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gB">B</span> GGT predicts cardiovascular mortality in dose-response fashion even <em>within</em> the normal range — highest vs lowest levels HR 1.59; ~10% added risk per 10 U/L (527K-participant meta-analysis). Gallbladder issues (Neelam's case) show up here first. Bilirubin elevation with GGT points to bile flow; isolated mild bilirubin (Gilbert's) is common and benign.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">Rising GGT + rising bilirubin together</span> — bile-duct/gallbladder conversation; sudden jaundice is urgent.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0172631">GGT dose-response meta-analysis, PLOS One</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9888340/">GGT and all-cause mortality cohort</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>Albumin</h3><span class="lay">the body's reserve-strength protein — nutrition, liver output, and inflammation in one number</span></div>
+    <div class="row"><span class="k">Ranges</span><span class="v">3.5–5.0 g/dL; <b>&lt;3.5 is hypoalbuminemia</b>.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gB">B</span> In stable coronary disease, low albumin marked a 10.2% vs 0.5% all-cause mortality difference; in heart failure, 1-year survival 66% vs 83% (adjusted mortality HR ≈ 2.2). One of the nine PhenoAge biological-age inputs. In an elderly post-op parent, a falling albumin is often the earliest visible signature of declining reserve — eminently actionable through nutrition.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">&lt;3.5 g/dL, or a steady down-trend across reports</span> — nutrition/protein-intake conversation with the doctor or dietitian.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://pubmed.ncbi.nlm.nih.gov/28413113/">Albumin in stable CHD</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11364577/">Albumin in chronic HF</a></span></div>
+  </div>
+
+  <h2>5 · Sugar <span class="sys">the slow-burn accelerant</span></h2>
+
+  <div class="bm">
+    <div class="head"><h3>HbA1c &amp; fasting glucose</h3><span class="lay">the 3-month sugar average — and post-MI, a marker where "lower" is not always "better"</span></div>
+    <div class="row"><span class="k">Ranges</span><span class="v">&lt;5.7% normal · 5.7–6.4 prediabetes · ≥6.5 diabetes. <b>Post-MI with diabetes, the mortality-optimal band is ~5.5–6.5%</b>, individualized by the doctor.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gB">B</span> U-shaped mortality after heart attack: vs 5.5–6.5%, adjusted odds 1.89 at &lt;5.5% and 1.30 at ≥8% — and <em>rapid swings in either direction carry independent risk</em> (OR ≈ 2.4 for steep falls). A systematic review across post-PCI populations confirms the U-shape. The layman translation NURA exists for: chasing a "perfect low" number in a frail parent can be as dangerous as neglect — stability wins.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">HbA1c ≥8%, any value &lt;5.5% in a treated diabetic, or a swing &gt;1.5 points between tests</span>; repeated low-sugar episodes (shakiness, sweats, confusion) are urgent medication-review triggers.</span></div>
+    <div class="row"><span class="k">Cadence</span><span class="v">Every 3 months until stable, then 6-monthly.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8348956/">HbA1c change and post-AMI survival</a> · <a href="https://journals.sagepub.com/doi/10.1177/14791641251400354">Systematic review, post-PCI</a> · <a href="https://www.nature.com/articles/s41598-024-80116-8">U-shape in CVD+diabetes, Sci Reports</a></span></div>
+  </div>
+
+  <h2>6 · Blood <span class="sys">the carrying capacity</span></h2>
+
+  <div class="bm">
+    <div class="head"><h3>Hemoglobin</h3><span class="lay">oxygen-carrying capacity — anemia makes every organ's recovery harder</span></div>
+    <div class="row"><span class="k">Ranges</span><span class="v">WHO anemia cut-offs: &lt;13 g/dL (men), &lt;12 (women).</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gB">B</span> Anemia in elderly cardiovascular patients independently predicts mortality (≈2× in several cohorts) and worsens heart-failure outcomes. Doubly relevant post-stent: blood-thinning dual antiplatelet therapy (DAPT) makes slow blood loss — and thus falling hemoglobin — a specific, watchable risk.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">A downward Hb trend on DAPT</span> (with or without black stools, unusual fatigue, breathlessness) — bleeding check with the doctor. Iron studies (ferritin) explain most other anemia.</span></div>
+    <div class="row"><span class="k">Cadence</span><span class="v">CBC every 3–6 months in year one post-stent, sooner with symptoms.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8390933/">Anemia in elderly CVD</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10328756/">HALP score &amp; mortality, NHANES</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>The "quiet" CBC indices — RDW, MCV, WBC, lymphocyte %</h3><span class="lay">numbers on every report that almost no one reads — yet four of them help compute biological age</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gB">B</span> RDW (variation in red-cell size), MCV, white-cell count, and lymphocyte % are four of the nine inputs of PhenoAge (§8) — each independently associated with mortality in NHANES-scale cohorts. Elevated RDW in particular is a robust, underappreciated adverse-outcome marker in cardiac patients. NURA can mine value from data families already have, at zero extra testing cost.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://journals.plos.org/plosmedicine/article?id=10.1371%2Fjournal.pmed.1002718">Levine et al., PLOS Medicine</a></span></div>
+  </div>
+
+  <h2>7 · Vitals &amp; daily signals <span class="sys">the free biomarkers measured at home</span></h2>
+
+  <div class="bm">
+    <div class="head"><h3>Blood pressure</h3><span class="lay">the load on every vessel wall — the most consequential home measurement in existence</span></div>
+    <div class="row"><span class="k">Targets</span><span class="v">Post-event care generally aims &lt;130/80; trials of intensive control (&lt;120 systolic) show lower mortality and events at the cost of more side effects — the exact trade-off is the doctor's call, individualized for age and frailty.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> A standard 10/5 mmHg reduction cuts major cardiovascular events ~28% in secondary prevention (meta-analysis); benefits hold in primary and secondary prevention alike.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">Home readings drifting up across a week; any reading &gt;180/120 (urgent); dizziness on standing</span> (possible overtreatment in the elderly — also a falls risk).</span></div>
+    <div class="row"><span class="k">Cadence</span><span class="v">Home BP 2–3×/week when stable, daily after medication changes — morning, seated, rested. The <em>weekly average trend</em> is the datum, not any single reading.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://www.ahajournals.org/doi/10.1161/HYPERTENSIONAHA.123.22610">Hypertension meta-analysis 2024</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12032999/">SBP &lt;120 meta-analysis</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>Resting heart rate · SpO₂ · weight</h3><span class="lay">three numbers a family can watch daily that genuinely forecast trouble</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gB">B</span> Resting HR &gt;80 bpm carries RR 1.45 for all-cause mortality vs lower rates (1.2M-person meta-analysis); in cardiac patients, guideline practice treats sustained elevation as a modifiable target. <span class="g gA">A</span> Rapid weight gain (~2 kg over 3 days) is the standard early-warning sign of fluid retention in heart-failure care — often days before breathlessness. SpO₂ &lt;94% sustained (without known lung disease) merits medical review.</span></div>
+    <div class="row"><span class="k">Red flags</span><span class="v"><span class="fl">Resting HR creeping up week over week · 2 kg in 3 days · SpO₂ sagging below baseline</span> — each is a "call the doctor today" trend, and each is capturable via a ₹2K weighing scale, a BP cuff, and a pulse oximeter.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://www.cmaj.ca/content/188/3/E53">Resting HR meta-analysis, CMAJ</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3798132/">RHR in CVD patients</a></span></div>
+  </div>
+
+  <h2>8 · Composite intelligence <span class="sys">where NURA's product magic lives</span></h2>
+
+  <div class="bm">
+    <div class="head"><h3>PhenoAge — biological age from a routine blood panel</h3><span class="lay">nine ordinary lab values + age, combined into "how old is this body really?"</span></div>
+    <div class="row"><span class="k">Inputs</span><span class="v">Albumin · creatinine · glucose · CRP · alkaline phosphatase · lymphocyte % · MCV · RDW · WBC — <b>all present in a standard Indian full-body panel a family already possesses</b>.</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gB">B</span> Levine et al. (NHANES, validated out-of-sample): PhenoAge predicts all-cause mortality, disease onset, and physical function <em>better than counting existing diseases</em>. Applied in multivessel coronary-disease patients, phenotypic age predicts mortality. <span class="g gC">C</span> Expanded biomarker sets improve prediction further — NURA's long-run direction as its data pool grows.</span></div>
+    <div class="row"><span class="k">Product note</span><span class="v">This is NURA's signature computed insight: "Mom's biological age improved 1.8 years over six months of recovery" — hope, quantified from tests already done, at zero marginal cost. Framed always as a wellness trend, never a diagnosis.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://journals.plos.org/plosmedicine/article?id=10.1371%2Fjournal.pmed.1002718">Levine 2018, PLOS Medicine</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8776473/">PhenoAge in coronary disease</a> · <a href="https://www.nature.com/articles/s42003-023-05456-z">Biological age from blood biomarkers, Nature Comms Bio</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>Cardiac rehabilitation — the intervention the data should push toward</h3><span class="lay">the single best-evidenced thing a recovering family can actually do</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> Cochrane/meta-analytic evidence (85 RCTs, 23,000+ patients): exercise-based cardiac rehab cuts cardiovascular mortality 26% (RR 0.74, number-needed-to-treat 37) and hospital readmissions ~18%. Participation in India is dismal — awareness, distance, cost. A family dashboard that tracks rehab adherence like a vital sign converts the strongest evidence in this entire document into daily behaviour.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://pubmed.ncbi.nlm.nih.gov/26764059/">Cochrane review, JACC</a> · <a href="https://academic.oup.com/eurheartj/article/44/6/452/7028725">2023 meta-analysis, Eur Heart J</a></span></div>
+  </div>
+
+  <h2>8b · Lifestyle levers <span class="sys">the daily inputs that move every marker above</span></h2>
+  <p>Biomarkers are outputs; lifestyle is the input side of the equation — and the levers below carry some of the largest effect sizes in all of post-op medicine. These power NURA's daily engagement loop: what the family logs each day is what the evidence says actually changes the trajectory.</p>
+
+  <div class="bm">
+    <div class="head"><h3>Smoking cessation</h3><span class="lay">the single largest survival lever a post-MI family controls</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> Meta-analysis of cohort studies (5,000+ post-MI patients): quitting after a heart attack cuts mortality ~46% (OR 0.54; number-needed-to-treat ≈ 13) — a larger effect than most medications in the regimen; benefit consistent across every subgroup studied. Across the literature, cessation reduces recurrent MI and death by 30–50%.</span></div>
+    <div class="row"><span class="k">Product note</span><span class="v">Smoking status is a day-one intake field and, for smokers, a tracked daily habit with milestone encouragement — never shame. Household smoking matters too (secondhand exposure).</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/485273">JAMA Int Med meta-analysis</a> · <a href="https://www.ncbi.nlm.nih.gov/books/NBK68213/">DARE quality-assessed review</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>Daily movement (steps)</h3><span class="lay">the cheapest measurable habit with a mortality dose-response curve</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> Meta-analyses of 15–17 international cohorts: each +1,000 steps/day associates with ~15% lower all-cause mortality; for adults 60+, risk keeps falling up to ~6,000–8,000 steps/day (younger adults ~8–10K); benefits begin far below the mythical 10,000 — even ~2,600 vs 2,000 steps registers. A 2025 Lancet Public Health review suggests ~7,000 as the pragmatic target.</span></div>
+    <div class="row"><span class="k">Product note</span><span class="v">Post-op walking progresses under the doctor/rehab plan — NURA tracks the trend and celebrates streaks; phone step counters make this the first automatically-capturable lifestyle input (no wearable required).</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://www.thelancet.com/journals/lanpub/article/PIIS2468-2667(21)00302-9/fulltext">Lancet Public Health, 15 cohorts</a> · <a href="https://academic.oup.com/eurjpc/article/30/18/1975/7226309">Eur J Prev Cardiol dose-response</a> · <a href="https://www.thelancet.com/journals/lanpub/article/PIIS2468-2667(25)00164-1/fulltext">2025 dose-response review</a></span></div>
+  </div>
+
+  <div class="bm">
+    <div class="head"><h3>Diet pattern (Mediterranean-style, adapted to Indian kitchens)</h3><span class="lay">an eating pattern with trial evidence in people who already had a cardiac event</span></div>
+    <div class="row"><span class="k">Evidence</span><span class="v"><span class="g gA">A</span> CORDIOPREV (secondary-prevention RCT): Mediterranean pattern cut major cardiovascular events ~27% vs a low-fat diet on top of optimal medication. <span class="g gB">B</span> Lyon Diet Heart Study reported 50–70% fewer recurrent events (older, smaller trial). <span class="g gC">C</span> Cochrane grades overall mortality evidence in secondary prevention as low-quality — honest read: pattern strongly promising, effect size uncertain. Mechanisms (LDL oxidation, inflammation) align with the hs-CRP/LDL entries above. India translation: mustard-oil/nuts/legumes/vegetable-forward thali mapping, not olive-oil dogma.</span></div>
+    <div class="row"><span class="k">Product note</span><span class="v">Captured as weekly photo-sampled meals + pattern score, not calorie policing. Dietitian referral, not prescription.</span></div>
+    <div class="row"><span class="k">Sources</span><span class="v src"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10421390/">Updated systematic review</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/32923349/">Cochrane review</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11795232/">Umbrella review</a></span></div>
+  </div>
+
+  <h2>9 · The expansion skeleton <span class="sys">same structure, next systems</span></h2>
+  <p>Each future pack fills the identical entry format (layman meaning · ranges · graded evidence · red-flag values <em>and trends</em> · what helps · cadence · sources):</p>
+  <div class="skel"><b>Thyroid</b> — TSH/T3/T4: fatigue, weight, heart-rhythm interactions; amiodarone patients need scheduled thyroid checks.</div>
+  <div class="skel"><b>Nutrition &amp; micronutrients</b> — B12 (critical for vegetarian Indian elderly, and metformin depletes it), vitamin D, iron/ferritin, folate.</div>
+  <div class="skel"><b>Hormonal &amp; metabolic</b> — insulin resistance (HOMA-IR), uric acid (independently prognostic post-STEMI), cortisol, sex hormones.</div>
+  <div class="skel"><b>Newborn &amp; pediatric pack</b> — growth percentiles, vaccination immunology, developmental markers; the "new parent" use case.</div>
+  <div class="skel"><b>Dialysis &amp; advanced kidney pack</b> — Kt/V, phosphate/PTH/calcium, fluid weights; the "post-op dialysis parent" use case.</div>
+  <div class="skel"><b>Oncology surveillance pack</b> — tumor markers in context (their notorious false-positive behaviour is itself the layman education).</div>
+  <div class="skel"><b>Bone &amp; frailty</b> — DEXA, grip strength, gait speed — the best predictors of elderly independence.</div>
+  <div class="skel"><b>Lifestyle completions</b> — alcohol (no-safe-level literature), sleep duration/quality, stress &amp; social connection — each needs its own multi-source entry before in-product use.</div>
+
+  <h2>10 · From evidence to engine — how the product consumes this document</h2>
+  <ol>
+    <li><strong>Curated rules, not model opinions.</strong> Each entry above becomes structured rules: marker × context (post-PCI, on-DAPT, diabetic, elderly) × threshold/trend → insight template + evidence grade + citation. The AI model's job is extraction (reading reports) and translation (explaining in the family's language) — <em>the medicine comes from this vetted base, so the same input always yields the same insight</em>. That is the difference between NURA and a chatbot, and it is also the safety architecture.</li>
+    <li><strong>Every insight shows its work.</strong> Grade badge + source link on each card in the product. Trust is the product; citations are the UI of trust.</li>
+    <li><strong>Trend primitives first.</strong> The engine's v1 vocabulary: at-target / off-target vs context-specific goals · direction over last 3 values · rate-of-change alarms (creatinine ≥25%, weight 2kg/3d, Hb down-trend on DAPT, K⁺ out of band, HbA1c swings) · monitoring-cadence overdue reminders. These cover the highest-value post-op moments with fully deterministic logic.</li>
+    <li><strong>The doctor stays the hero.</strong> Outputs are framed as preparation: "worth discussing", "ask about", "bring this trend chart." A junior doctor reading a NURA summary should find it clinically literate and properly humble.</li>
+  </ol>
+
+  <hr class="rule">
+  <p class="src">v1 · compiled August 2026 · 40+ primary sources · maintained as NURA's canonical evidence base. Grades: A = guideline/meta-analysis · B = large cohort/consortium · C = emerging. This compendium is educational information, not medical advice; all care decisions belong with treating clinicians.</p>
+</div>
+</body>
+</html>

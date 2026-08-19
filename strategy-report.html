@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Market research, competitive landscape, pricing benchmark, TAM/SAM/SOM, and the viability verdict for NURA — a family health-intelligence platform.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%AB%80%3C/text%3E%3C/svg%3E">
+<title>NURA — Strategy Report</title>
+<style>
+  :root {
+    --bg: #faf9f7; --surface: #ffffff; --ink: #1d1c1a; --ink2: #57534c; --muted: #8a867e;
+    --line: #e7e4dd; --accent: #0e7a6c; --accent-deep: #0b5f55; --wash: #edf5f3;
+    --chart-surface: #fcfcfb; --grid: #e1e0d9; --axis: #c3c2b7;
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s5: #e87ba4; --s7: #4a3aa7;
+    --good: #0ca30c; --crit: #d03b3b;
+    --seq3: #9ec5f4; --seq4: #6da7ec; --seq5: #3987e5; --seq6: #256abf; --seq7: #184f95;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141413; --surface: #1d1c1b; --ink: #f2f0ec; --ink2: #c4c0b8; --muted: #8a867e;
+      --line: #31302d; --accent: #45c0ab; --accent-deep: #6fd3c2; --wash: #17302b;
+      --chart-surface: #1a1a19; --grid: #2c2c2a; --axis: #383835;
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s5: #d55181; --s7: #9085e9;
+      --good: #0ca30c; --crit: #e66767;
+      --seq3: #184f95; --seq4: #1c5cab; --seq5: #256abf; --seq6: #3987e5; --seq7: #6da7ec;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141413; --surface: #1d1c1b; --ink: #f2f0ec; --ink2: #c4c0b8; --muted: #8a867e;
+    --line: #31302d; --accent: #45c0ab; --accent-deep: #6fd3c2; --wash: #17302b;
+    --chart-surface: #1a1a19; --grid: #2c2c2a; --axis: #383835;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s5: #d55181; --s7: #9085e9;
+    --good: #0ca30c; --crit: #e66767;
+    --seq3: #184f95; --seq4: #1c5cab; --seq5: #256abf; --seq6: #3987e5; --seq7: #6da7ec;
+  }
+  body { background: var(--bg); color: var(--ink); margin: 0;
+    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 3.5rem 1.25rem 6rem; }
+  h1, h2, h3 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    line-height: 1.2; text-wrap: balance; margin: 0; }
+  h1 { font-size: 2.6rem; font-weight: 600; letter-spacing: -0.01em; }
+  h2 { font-size: 1.7rem; font-weight: 600; margin: 3.2rem 0 0.9rem; }
+  h3 { font-size: 1.15rem; font-weight: 600; margin: 1.8rem 0 0.5rem; }
+  p { margin: 0 0 1rem; } .lead { font-size: 1.15rem; color: var(--ink2); }
+  .eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 0.6rem; }
+  .kicker { color: var(--muted); font-size: 0.85rem; margin-top: 1rem; }
+  .rule { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
+  a { color: var(--accent-deep); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  .verdict { background: var(--wash); border-left: 3px solid var(--accent); padding: 1.1rem 1.3rem;
+    border-radius: 0 6px 6px 0; margin: 1.5rem 0; }
+  .verdict p:last-child { margin-bottom: 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; margin: 1.2rem 0; }
+  th { text-align: left; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted); padding: 0.5rem 0.75rem 0.5rem 0;
+    border-bottom: 1px solid var(--axis); }
+  td { padding: 0.6rem 0.75rem 0.6rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+  .scroll { overflow-x: auto; }
+  .scroll table { min-width: 640px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 1.4rem 0; }
+  .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 1rem 1.1rem; }
+  .tile .n { font-size: 1.9rem; font-weight: 650; line-height: 1.15; letter-spacing: -0.01em; }
+  .tile .l { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.35rem; }
+  .tile .d { font-size: 0.82rem; color: var(--ink2); margin-top: 0.3rem; }
+  .fig { background: var(--chart-surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1.2rem 1.2rem 0.9rem; margin: 1.5rem 0; }
+  .fig figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.7rem; }
+  figure { margin: 0; }
+  .legend { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; color: var(--ink2); margin-top: 0.6rem; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  ol, ul { padding-left: 1.3rem; margin: 0 0 1rem; }
+  li { margin-bottom: 0.45rem; }
+  .stage { border: 1px solid var(--line); background: var(--surface); border-radius: 8px;
+    padding: 1rem 1.2rem; margin-bottom: 0.8rem; }
+  .stage h3 { margin-top: 0; }
+  .stage .gap { color: var(--ink2); font-size: 0.92rem; margin: 0.4rem 0 0; }
+  .stage .gap b { color: var(--crit); font-weight: 600; }
+  .pill { display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 2px 9px; border-radius: 99px; background: var(--wash);
+    color: var(--accent-deep); margin-left: 6px; vertical-align: middle; }
+  .src { font-size: 0.8rem; color: var(--muted); }
+  .src a { color: var(--muted); }
+  .footnote { font-size: 0.85rem; color: var(--ink2); }
+  svg text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="eyebrow">NURA · Strategy Report · August 2026</p>
+  <h1>A family deserves to understand what is happening inside the body of someone they love.</h1>
+  <p class="kicker">Market research, competitive analysis, and viability verdict for NURA — a family health-intelligence platform. Prepared for Vikramjeet Singh. Anchor case: Neelam, 57, post-cardiac recovery. Companion document: <em>NURA Execution Playbook</em>.</p>
+
+  <hr class="rule">
+
+  <h2>1 · The verdict, upfront</h2>
+  <div class="verdict">
+    <p><strong>The idea is viable, the white space is real, and the wedge is right — but the business must be earned through validation, not built on faith.</strong></p>
+    <p>No player in India — or globally at consumer scale — owns <em>family-caregiver health intelligence</em>: turning a family's scattered medical records into understanding, preparation, and foresight for the non-medical person coordinating care. Records apps store. Chat AIs answer one-off questions. Elder-care services do logistics. Hospital post-op tools serve hospitals. The seat next to the patient is empty.</p>
+    <p>The honest caveats: Indian consumers structurally resist health subscriptions, the space between "organizing information" and "practicing medicine" is a regulatory line you must never cross, and well-funded players (Eka Care, August AI, PharmEasy) could move sideways into this space. Your durable moat is the one you identified: <strong>longitudinal, multi-generational family health data that users entrust to you</strong> — plus the empathy of having lived the problem. Speed to trust matters more than speed to features.</p>
+  </div>
+
+  <h2>2 · The problem, generalized from one family</h2>
+  <p>After a severe cardiac event, a family without medical training inherits a job no one trained them for: tracking biomarkers across kidney, liver, and cardiac panels; reconciling prescriptions from four specialists; knowing which trend is expected and which is a warning; walking into each consultation prepared. The information exists — in PDFs, WhatsApp forwards, lab portals, and memory — but the <em>understanding</em> lives only inside specialists who each see one organ.</p>
+  <p>This is not a niche experience. It is the default experience of serious illness in India:</p>
+  <div class="tiles">
+    <div class="tile"><div class="l">Elderly Indians, 2025</div><div class="n">~159M</div><div class="d">people aged 60+, doubling by 2050</div></div>
+    <div class="tile"><div class="l">Chronic burden</div><div class="n">89%</div><div class="d">of elderly live with at least one non-communicable disease</div></div>
+    <div class="tile"><div class="l">Cardiac procedures</div><div class="n">~300K/yr</div><div class="d">incl. 200K+ angioplasties, ~60K bypass surgeries</div></div>
+    <div class="tile"><div class="l">Family structure</div><div class="n">Nuclear</div><div class="d">adult children coordinate care, increasingly from another city or country</div></div>
+  </div>
+  <p class="src">Sources: <a href="https://www.ncbi.nlm.nih.gov/books/NBK109208/">NCBI — Health of the Elderly in India</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8916671/">PMC — chronic disease prevalence among Indian elderly</a> · <a href="https://www.hexahealth.com/blog/facts-and-statistics-about-heart-and-bypass-surgery">HexaHealth — cardiac surgery statistics</a> · <a href="https://care247.in/carehub-blog-nri-how-to-care-for-aging-parents-in-india/">Care247 — NRI elder care</a></p>
+
+  <h2>3 · The market</h2>
+  <p>India's digital health market was estimated at <strong>$17.8B in 2025</strong>, projected to reach <strong>~$107B by 2033</strong> (25% CAGR; a more conservative house projects ~$76B). Home healthcare alone is headed to <strong>$36B by 2030</strong>. Critically, the government has built the rails NURA can ride: the Ayushman Bharat Digital Mission has issued <strong>90+ crore ABHA health IDs</strong> and linked <strong>100+ crore health records</strong> — meaning digital health records are becoming normal for ordinary Indian families, but no one is making them <em>intelligible</em>.</p>
+  <p class="src">Sources: <a href="https://www.grandviewresearch.com/industry-analysis/india-digital-health-market-report">Grand View Research</a> · <a href="https://www.imarcgroup.com/india-digital-health-market">IMARC Group</a> · <a href="https://www.businesswire.com/news/home/20220927005639/en/The-Indian-Home-Healthcare-Industry-is-Expected-to-Reach-36-Billion-by-2030---ResearchAndMarkets.com">ResearchAndMarkets — home healthcare</a> · <a href="https://www.indianpharmapost.com/digitisation/lite/abdm-crosses-100-crore-abha-linked-health-records-milestone-20326">Indian Pharma Post — ABDM milestone</a></p>
+
+  <h3>TAM · SAM · SOM (bottom-up, India consumer subscription)</h3>
+  <div class="tiles">
+    <div class="tile"><div class="l">TAM</div><div class="n">~₹9,000 Cr/yr</div><div class="d">(~$1.1B) ~75M Indian households managing a member with a serious chronic condition × modest ₹1,200/yr spend potential</div></div>
+    <div class="tile"><div class="l">SAM</div><div class="n">~₹4,000 Cr/yr</div><div class="d">(~$480M) ~12M digitally-paying urban households in that group × ₹2,400/yr, plus ~5M NRI households supporting parents in India at premium pricing</div></div>
+    <div class="tile"><div class="l">SOM · Year 3</div><div class="n">~₹4.5–9 Cr ARR</div><div class="d">(~$0.5–1M) capturing 1–2% of reachable post-op/cardiac families: ~18–35K paying subscribers at blended ₹2,500/yr</div></div>
+  </div>
+  <p class="footnote"><strong>How to read this.</strong> The TAM assumes roughly a third of India's ~300M households include an elderly member, of whom ~75% manage a chronic condition, plus younger cardiac/dialysis/oncology households. The SAM narrows to households that already pay for apps and diagnostics (NCCS A/B urban). Cross-check, top-down: a 2–3% "consumer health records &amp; engagement" slice of the $17.8B digital health market gives $350–530M — consistent with the bottom-up SAM, so the sizing passes the sanity gate. The Year-3 SOM is deliberately conservative: it assumes organic acquisition through the cardiac wedge only, before expansion use cases (newborn, preventive, dialysis) open the rest of the SAM.</p>
+
+  <h3>Willingness to pay — the honest picture</h3>
+  <p>Indian consumers resist abstract health subscriptions: healthcare is subsidised, negotiated, or employer-insured, so "₹499/month for wellness" fails where ₹499 for Netflix succeeds. What works is <strong>anchoring to transactional, tangible value</strong> — 1mg, Healthians, and Practo built paying bases on "you saved ₹X." Reference prices that exist today: Practo Plus at ₹399/mo, MediBuddy Gold at ₹500–2,000/yr, full-body checkups at ₹999–2,499 a purchase, and in the US, Superpower at $199/yr and Function Health at $365–499/yr. The lesson for NURA: sell the <em>artifact</em> (a consultation prep sheet, a plain-language health picture, a trend alert that averted a readmission), never the abstraction ("health management").</p>
+  <p class="src">Sources: <a href="https://productgrowth.in/insights/healthtech/healthtech-monetisation-india/">ProductGrowth — healthtech monetisation in India</a> · <a href="https://blog.practo.com/practo-launches-health-plan-to-offer-unlimited-online-doctor-consultations-starting-at-399-per-month/">Practo Plus pricing</a> · <a href="https://smarthealthreport.in/blog/thyrocare-vs-healthians-vs-redcliffe-comparison">Lab pricing comparison</a> · <a href="https://healnourishgrow.com/superpower-health-review/">Superpower review</a> · <a href="https://medicalnewstoday.us/function-health-price-2026/">Function Health pricing</a></p>
+
+  <h3>Price benchmark — what health products actually charge today</h3>
+  <div class="scroll"><table>
+    <tr><th>Product</th><th>Price</th><th>What the money buys</th><th>Positioning vs NURA</th></tr>
+    <tr><td>Eka Care (consumer)</td><td>Free (monetises doctors at ₹17–19K/yr)</td><td>Record storage, ABDM sync, basic AI insights</td><td>Free storage is commoditised — NURA cannot charge for storage, only intelligence</td></tr>
+    <tr><td>August AI</td><td>Free</td><td>WhatsApp Q&amp;A, one-off lab-report reads</td><td>Sets the free floor for "explain my report" — NURA's free tier must match it, paid tier must exceed it</td></tr>
+    <tr><td>Practo Plus</td><td>₹399/mo</td><td>Unlimited online consults, 20+ specialities</td><td>Proof Indians pay ~₹400/mo for transactional health value</td></tr>
+    <tr><td>MediBuddy Gold</td><td>~₹500–2,000/yr</td><td>Discounted consults for family</td><td>Family-wide framing at budget price point</td></tr>
+    <tr><td>Full-body checkup (Redcliffe/Healthians)</td><td>₹999–2,499/test</td><td>70–90+ biomarkers, once</td><td>The data NURA interprets; a NURA year should cost less than one checkup</td></tr>
+    <tr><td>Anvayaa / Emoha (elder care)</td><td>₹10,000–45,000/mo</td><td>On-ground caregivers, emergency response</td><td>The NRI anxiety budget exists — NURA's intelligence tier captures a slice at software margins</td></tr>
+    <tr><td>Guava Health (US)</td><td>Free · $78/yr premium</td><td>Records + AI insights + family profiles</td><td>Closest global analogue; validates ~$6.5/mo consumer price for records+intelligence</td></tr>
+    <tr><td>Superpower (US)</td><td>$199/yr</td><td>100+ biomarker test + action plan</td><td rowspan="3">The longevity crowd pays $199–1,500/yr for biomarker intelligence on the healthy self — NURA's NRI pricing sits far below this while serving a more urgent need</td></tr>
+    <tr><td>Function Health (US)</td><td>$365–499/yr</td><td>100+ biomarkers, retest, clinician notes</td></tr>
+    <tr><td>InsideTracker (US)</td><td>$149/yr + ~$340/test</td><td>Biomarker analysis + recommendations</td></tr>
+  </table></div>
+  <p class="src">Sources: <a href="https://www.eka.care/practice-management/plan-pricing">Eka Care pricing</a> · <a href="https://blog.practo.com/practo-launches-health-plan-to-offer-unlimited-online-doctor-consultations-starting-at-399-per-month/">Practo Plus</a> · <a href="https://www.bajajfinserv.in/medibuddy-subscription-plans">MediBuddy Gold</a> · <a href="https://smarthealthreport.in/blog/thyrocare-vs-healthians-vs-redcliffe-comparison">Lab checkup pricing</a> · <a href="https://www.upto75.com/anvayaa-elderly-care-plans-discount-offers">Anvayaa</a> · <a href="https://emoha.com/plans">Emoha</a> · <a href="https://guavahealth.com/plans">Guava plans</a> · <a href="https://healnourishgrow.com/superpower-health-review/">Superpower</a> · <a href="https://medicalnewstoday.us/function-health-price-2026/">Function Health</a> · <a href="https://store.insidetracker.com/products/insidetracker-membership">InsideTracker</a>. Elder-care figures are ranges from aggregator/comparison pages — verify per city before quoting externally.</p>
+  <p><strong>The pricing white space in one line:</strong> below ₹400/mo sits transactional access (consults, tests); above ₹10,000/mo sits human elder-care service; <em>nobody sells family health intelligence in the ₹200–1,500/mo band</em> — that is NURA's price territory, benchmarked and defensible.</p>
+
+  <h2>4 · Competitive landscape</h2>
+  <p>Twelve-plus players examined, falling into five clusters. None sits where NURA intends to stand.</p>
+  <div class="scroll"><table>
+    <tr><th>Cluster</th><th>Players</th><th>What they do well</th><th>Where they stop</th></tr>
+    <tr><td>Records / PHR</td><td>Eka Care (India's largest consumer PHR, ABDM-compliant, 12 languages, family profiles), DRiefcase, Samsung Health PHR, new entrants (Ayu, MyDigiRecords)</td><td>Storage, ABDM linkage, digitisation at scale</td><td>Store-first. Insights are shallow, per-individual, and not built for the caregiver running a recovery</td></tr>
+    <tr><td>AI health chat</td><td>August AI (3.5M+ users, WhatsApp, free lab-report analysis), PharmEasy Swasth.AI, Bharat Swasth, Docus, Ada</td><td>Instant plain-language answers; proved Indians will send lab PDFs to an AI on WhatsApp</td><td>One-off Q&amp;A for one person. No longitudinal family dashboard, no care coordination, no consultation prep</td></tr>
+    <tr><td>Transactional platforms</td><td>Practo, MediBuddy, Tata 1mg, Apollo 24/7</td><td>Consults, meds, tests at scale; proven ₹ payment behaviour</td><td>Sell transactions, not understanding; records are a retention feature, not a product</td></tr>
+    <tr><td>Elder-care / caregiver services</td><td>Anvayaa (10K+ pin codes, 40 cities), Care247, Pranyaas, Emoha; US apps: Caring Village, CareClinic, Connected Caregiver</td><td>On-ground ops, emergency response, NRI trust; caregiver apps do meds/appointment logistics</td><td>Service-heavy and expensive, or logistics-only. No biomarker intelligence, no clinical sense-making</td></tr>
+    <tr><td>Post-op &amp; longevity</td><td>Recoup, Postward, PostOp.ai, Buddy Healthcare (hospital-side B2B); Function Health, Superpower, Guava (US consumer)</td><td>Post-op pathways exist — sold to hospitals; longevity apps prove biomarker dashboards sell (to the healthy, in the US)</td><td>Post-op tools never reach the family after discharge; longevity apps serve the optimising self, not the anxious son or daughter</td></tr>
+  </table></div>
+  <p class="src">Sources: <a href="https://ayuapp.com/blog/best-phr-apps-india-2026">Ayu — PHR apps India 2026</a> · <a href="https://www.toolsforhumans.ai/ai-tools/august">August AI review</a> · <a href="https://www.microsoft.com/en-in/aifirstmovers/august-ai">Microsoft — August AI</a> · <a href="https://pharmeasy.in/blog/introducing-swasth-ai-your-personal-ai-assistant-for-smarter-health-insights-on-lab-reports/">PharmEasy Swasth.AI</a> · <a href="https://anvayaa.com/nri-elder-care-services/">Anvayaa</a> · <a href="https://caringvillage.com/blog/caregiver-tech/caregiver-apps-for-families/">Caring Village — caregiver apps</a> · <a href="https://play.google.com/store/apps/details?id=com.phipl.recoup">Recoup</a> · <a href="https://guavahealth.com/">Guava Health</a></p>
+
+  <h3>What to learn, what to do better</h3>
+  <ul>
+    <li><strong>From August AI:</strong> WhatsApp-first distribution works in India; zero-install is the on-ramp. <em>Do better:</em> memory, family context, and longitudinal trends instead of stateless Q&amp;A.</li>
+    <li><strong>From Eka Care:</strong> ABDM compliance and family profiles are table stakes; plan for both. <em>Do better:</em> lead with intelligence, not storage — storage is the byproduct.</li>
+    <li><strong>From Guava/Function:</strong> biomarker trend visualisation is the product's emotional core; craft it beautifully. <em>Do better:</em> centre the caregiver, price for India, work from photographed paper reports.</li>
+    <li><strong>From Anvayaa/Care247:</strong> NRI children paying premium prices for parent care is proven behaviour. <em>Do better:</em> sell intelligence and peace of mind at software margins, not manpower at service margins.</li>
+    <li><strong>From caregiver apps:</strong> shared family coordination (meds, appointments, tasks) is expected scaffolding. <em>Do better:</em> attach it to clinical sense-making so the app is consulted daily, not just at dose time.</li>
+  </ul>
+
+  <h2>5 · Perceptual positioning</h2>
+  <figure class="fig">
+    <svg viewBox="0 0 720 540" role="img" aria-label="Positioning map: horizontal axis from record storage to health intelligence, vertical axis from individual self-tracker to family caregiver focus. NURA targets the top-right: high intelligence, family-caregiver centred — currently empty.">
+      <rect x="390" y="30" width="300" height="230" rx="10" fill="var(--wash)"></rect>
+      <text x="672" y="54" text-anchor="end" font-size="12" font-weight="600" fill="var(--accent-deep)">THE WHITE SPACE</text>
+      <line x1="60" y1="270" x2="700" y2="270" stroke="var(--axis)" stroke-width="1"></line>
+      <line x1="380" y1="30" x2="380" y2="510" stroke="var(--axis)" stroke-width="1"></line>
+      <text x="62" y="292" font-size="11.5" fill="var(--muted)">← Record storage</text>
+      <text x="698" y="292" text-anchor="end" font-size="11.5" fill="var(--muted)">Health intelligence →</text>
+      <text x="372" y="44" text-anchor="end" font-size="11.5" fill="var(--muted)">Family / caregiver-centred ↑</text>
+      <text x="372" y="506" text-anchor="end" font-size="11.5" fill="var(--muted)">Individual self-tracker ↓</text>
+      <!-- Records cluster (blue) -->
+      <circle cx="180" cy="310" r="7" fill="var(--s1)"></circle>
+      <text x="180" y="332" text-anchor="middle" font-size="11.5" fill="var(--ink2)">Eka Care</text>
+      <circle cx="120" cy="360" r="7" fill="var(--s1)"></circle>
+      <text x="120" y="382" text-anchor="middle" font-size="11.5" fill="var(--ink2)">DRiefcase</text>
+      <circle cx="95" cy="430" r="7" fill="var(--s1)"></circle>
+      <text x="95" y="452" text-anchor="middle" font-size="11.5" fill="var(--ink2)">Samsung PHR</text>
+      <circle cx="205" cy="395" r="7" fill="var(--s1)"></circle>
+      <text x="205" y="417" text-anchor="middle" font-size="11.5" fill="var(--ink2)">Practo · 1mg</text>
+      <!-- AI chat cluster (orange) -->
+      <circle cx="500" cy="440" r="7" fill="var(--s2)"></circle>
+      <text x="500" y="462" text-anchor="middle" font-size="11.5" fill="var(--ink2)">August AI</text>
+      <circle cx="420" cy="470" r="7" fill="var(--s2)"></circle>
+      <text x="420" y="492" text-anchor="middle" font-size="11.5" fill="var(--ink2)">Swasth.AI</text>
+      <circle cx="470" cy="360" r="7" fill="var(--s2)"></circle>
+      <text x="470" y="382" text-anchor="middle" font-size="11.5" fill="var(--ink2)">Guava (US)</text>
+      <circle cx="620" cy="450" r="7" fill="var(--s2)"></circle>
+      <text x="620" y="472" text-anchor="middle" font-size="11.5" fill="var(--ink2)">Function · Superpower (US)</text>
+      <!-- Care services cluster (aqua) -->
+      <circle cx="200" cy="105" r="7" fill="var(--s3)"></circle>
+      <text x="200" y="93" text-anchor="middle" font-size="11.5" fill="var(--ink2)">Anvayaa · Care247</text>
+      <circle cx="165" cy="175" r="7" fill="var(--s3)"></circle>
+      <text x="165" y="163" text-anchor="middle" font-size="11.5" fill="var(--ink2)">Caring Village · CareClinic (US)</text>
+      <circle cx="330" cy="225" r="7" fill="none" stroke="var(--s3)" stroke-width="2.5"></circle>
+      <text x="330" y="213" text-anchor="middle" font-size="11.5" fill="var(--ink2)">Recoup (hospital B2B)</text>
+      <!-- NURA -->
+      <path d="M 590 130 l 6.5 13.2 14.6 2.1 -10.6 10.3 2.5 14.5 -13 -6.9 -13 6.9 2.5 -14.5 -10.6 -10.3 14.6 -2.1 Z" fill="var(--accent)"></path>
+      <text x="590" y="185" text-anchor="middle" font-size="13" font-weight="650" fill="var(--ink)">NURA</text>
+      <text x="590" y="202" text-anchor="middle" font-size="11" fill="var(--ink2)">family intelligence</text>
+    </svg>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--s1)"></span>Records &amp; transactional platforms</span>
+      <span><span class="dot" style="background:var(--s2)"></span>AI chat &amp; biomarker apps</span>
+      <span><span class="dot" style="background:var(--s3)"></span>Caregiver &amp; elder-care services (hollow = sold to hospitals)</span>
+    </div>
+    <figcaption>Positioning of examined players. The top-right quadrant — deep intelligence, built for the family member coordinating care — is unoccupied in India and globally at consumer scale.</figcaption>
+  </figure>
+
+  <h2>6 · Gap analysis — the care journey no one covers end-to-end</h2>
+  <p>Mapped from Neelam's journey, generalised to any serious illness. The bold phrases mark where families are failed today.</p>
+
+  <div class="stage"><h3>1 · Crisis &amp; diagnosis</h3>
+    <p class="gap">Family is in shock, decisions are urgent, information asymmetry is total. Google terrifies; doctors have 90 seconds. <b>Gap:</b> no calm translator of "what just happened and what happens next."</p></div>
+  <div class="stage"><h3>2 · Hospitalisation &amp; procedure</h3>
+    <p class="gap">Hospital manages this phase well — it is the <em>only</em> phase anyone manages. Records pile up as discharge summaries, angiography CDs, printed panels. <b>Gap:</b> nothing structures this data for what comes after.</p></div>
+  <div class="stage"><h3>3 · Discharge — the cliff <span class="pill">sharpest pain</span></h3>
+    <p class="gap">The system's attention ends at the hospital gate. The family inherits medication schedules, diet rules, warning signs, and follow-up cadence — from a sheet of paper. Hospital post-op tools (Recoup et al.) serve the hospital's readmission metrics, not the family's understanding. <b>Gap:</b> the entire cognitive load transfers to untrained people on day one, with no tool built for them.</p></div>
+  <div class="stage"><h3>4 · Multi-specialist recovery loop <span class="pill">NURA's wedge</span></h3>
+    <p class="gap">Cardiologist, nephrologist, gastroenterologist, physician — each sees one organ, none sees the whole. Tests repeat, drugs interact, trends drift unnoticed between visits. The family shuttles PDFs and half-remembered instructions. <b>Gap:</b> no cross-specialist picture, no trend surveillance, no consultation preparation. This is where a preventable mishap becomes a tragedy — and where one caught early is a life saved.</p></div>
+  <div class="stage"><h3>5 · Chronic long-term management</h3>
+    <p class="gap">Vigilance fatigue sets in; monitoring lapses until the next scare. <b>Gap:</b> nothing maintains a quiet, ambient watch over the family's health data and speaks up only when it matters.</p></div>
+
+  <h2>7 · Regulatory guardrails</h2>
+  <ul>
+    <li><strong>Stay a wellness/information tool, decisively.</strong> CDSCO's October 2025 medical-device-software guidance requires licensing for software that <em>diagnoses, treats, or monitors medical conditions</em> — including AI clinical decision support. General wellness and information apps are exempt. NURA therefore: explains reports in plain language, organises records, tracks trends, prepares questions for doctors — and <em>never</em> diagnoses, prescribes, or advises treatment changes. Every output carries "discuss with your doctor" framing. This line is also the safety line.</li>
+    <li><strong>DPDP Act 2023 + Rules 2025.</strong> Health-tech platforms are Data Fiduciaries; full enforcement lands May 2027. Build the habits now — explicit granular consent, data minimisation, breach process, easy deletion — because for NURA, whose entire moat is entrusted family data, privacy is not compliance, it is the product promise.</li>
+    <li><strong>ABDM as an asset.</strong> ABHA-linking (Phase 2) lets users pull records from the national network instead of uploading everything — a real onboarding accelerant, already normalised by 90 crore issued IDs.</li>
+  </ul>
+  <p class="src">Sources: <a href="https://the420.in/cdsco-ai-medical-software-device-classification-india/">CDSCO AI/software classification</a> · <a href="https://www.diligencecertification.com/cdsco-rules-for-health-apps">CDSCO rules for health apps</a> · <a href="https://kpmg.com/in/en/insights/2025/12/the-privacy-prescription-impact-of-dpdp-act-and-rules-in-healthcare-and-life-sciences-sector.html">KPMG — DPDP in healthcare</a> · <a href="https://thelogicalindian.com/dpdp-act-enforced-from-may-20-121067/">DPDP enforcement timeline</a></p>
+
+  <h2>8 · Riskiest assumptions &amp; the validation gauntlet</h2>
+  <p>Ranked by how fatal a "no" would be. Each is tested by the 8-week concierge MVP (see Playbook) before serious money is spent.</p>
+  <div class="scroll"><table>
+    <tr><th>#</th><th>Assumption</th><th>Test (weeks 1–8, 15–20 families)</th><th>Pass gate</th></tr>
+    <tr><td>A1</td><td>Families will entrust medical records to a non-doctor tool</td><td>Ask pilot families to share reports via WhatsApp on day 1</td><td>≥70% share 3+ documents in week 1</td></tr>
+    <tr><td>A2</td><td>The "health picture + prep sheet" genuinely changes how prepared families feel</td><td>Deliver 2+ prep sheets per family; survey after real consultations</td><td>≥40% "very disappointed if taken away"; prep sheet used in an actual consult by ≥60%</td></tr>
+    <tr><td>A3</td><td>Indian families will pay real money</td><td>Genuine payment ask in week 5–6 (₹499–1,499/mo concierge tier)</td><td>≥25% of active families pay something; ≥3 NRI families accept premium pricing</td></tr>
+    <tr><td>A4</td><td>AI-assisted interpretation is accurate and safe with founder-in-the-loop</td><td>Doctor-advisor audits 50 outputs before delivery</td><td>Zero harmful errors; &lt;10% needing material correction</td></tr>
+    <tr><td>A5</td><td>Families can be found without paid ads</td><td>Recruit via cardiac support groups, discharge networks, personal referral</td><td>20 families recruited within 3 weeks; ≥1 repeatable channel identified</td></tr>
+  </table></div>
+  <p><strong>Kill / pivot / scale rule:</strong> A1, A2, A4 all pass → build Phase 1. A3 fails but A1–A2 pass → pivot pricing toward the NRI premium segment first. A1 or A2 fails after honest iteration → stop and rethink before spending the remaining budget. Every mishap-averted story collected in the pilot becomes both proof of mission and the core of the marketing narrative.</p>
+
+  <h2>9 · Where NURA wins — and where it must be careful</h2>
+  <h3>Not an AI assistant — an evidence engine</h3>
+  <p>NURA's intelligence is deliberately <em>not</em> "a chatbot that answers health questions" (August AI already gives that away free). NURA's core is a <strong>curated, evidence-graded knowledge base</strong> — guideline-, meta-analysis-, and cohort-backed correlations between biomarkers and risk, recovery, longevity, and fatality, each claim corroborated across multiple established sources and carrying its citations. The AI model only <em>extracts</em> data from reports and <em>translates</em> vetted knowledge into the family's language; the medicine itself comes from the evidence base, so identical inputs always produce identical, sourced insights. That is the safety architecture, the regulatory posture, and the differentiation in one design decision. The base is built and live: the <a href="https://claude.ai/code/artifact/d4378025-f005-4b1e-aa6b-45de6d129d95">NURA Biomarker Evidence Compendium</a> (post-op cardiac panel, 24 indexed claims, 40+ primary sources, machine-readable evidence index alongside).</p>
+  <h3>The moat, in order of durability</h3>
+  <ol>
+    <li><strong>Proprietary longitudinal family data</strong> — every uploaded report deepens a family graph no competitor can replicate; switching costs compound with every member and every month.</li>
+    <li><strong>The evidence engine</strong> — a curated, citation-backed, India-context biomarker knowledge base that deepens with every use-case pack; generic LLM wrappers cannot match its consistency, and matching its curation takes the years NURA will already have spent.</li>
+    <li><strong>Position in the empty quadrant</strong> — caregiver-centred intelligence, a position incumbents would have to reorganise their products (and incentives) to attack.</li>
+    <li><strong>Founder-market fit</strong> — the product is being built by its own users, during the journey it serves. This authenticity is the acquisition story.</li>
+  </ol>
+  <h3>The threats to respect</h3>
+  <ul>
+    <li>August AI or Eka Care adding "family mode" — likely eventually; NURA's answer is depth-of-caregiver-workflow, not feature count, and moving fast while this space is unowned.</li>
+    <li>Trust and safety: one bad AI interpretation reaching a family unreviewed could end the company. Human-in-the-loop until accuracy is proven, forever conservative in tone.</li>
+    <li>Subscription fatigue: mitigate by anchoring price to artifacts and averted costs, and by the NRI tier where willingness to pay is proven.</li>
+  </ul>
+
+  <hr class="rule">
+  <p class="footnote">Verdict recap: <strong>proceed</strong> — into an 8-week, ~₹35K validation sprint, not a build-out. The companion <em>NURA Execution Playbook</em> details the offering, feature roadmap on the critical path, pricing, and the ₹5,00,000 budget allocation.</p>
+  <p class="kicker">For Neelam — and every family sitting in a hospital corridor trying to understand.</p>
+</div>
+</body>
+</html>

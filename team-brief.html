@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Everything the NURA team has learned — market, science, competition, and strategy — summarized on one page.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
+<title>NURA — Team Brief: Everything We Know</title>
+<style>
+  :root {
+    --bg: #faf9f7; --surface: #ffffff; --ink: #1d1c1a; --ink2: #57534c; --muted: #8a867e;
+    --line: #e7e4dd; --accent: #0e7a6c; --accent-deep: #0b5f55; --wash: #edf5f3; --bad: #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141413; --surface: #1d1c1b; --ink: #f2f0ec; --ink2: #c4c0b8; --muted: #8a867e;
+      --line: #31302d; --accent: #45c0ab; --accent-deep: #6fd3c2; --wash: #17302b; --bad: #e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141413; --surface: #1d1c1b; --ink: #f2f0ec; --ink2: #c4c0b8; --muted: #8a867e;
+    --line: #31302d; --accent: #45c0ab; --accent-deep: #6fd3c2; --wash: #17302b; --bad: #e66767;
+  }
+  body { background: var(--bg); color: var(--ink); margin: 0;
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  h1, h2 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    line-height: 1.2; text-wrap: balance; margin: 0; }
+  h1 { font-size: 2.2rem; font-weight: 600; }
+  h2 { font-size: 1.4rem; font-weight: 600; margin: 2.6rem 0 0.7rem; }
+  p { margin: 0 0 0.9rem; }
+  .eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 0.5rem; }
+  .kicker { color: var(--muted); font-size: 0.85rem; margin-top: 0.8rem; }
+  .rule { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+  a { color: var(--accent-deep); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  ul { padding-left: 1.25rem; margin: 0 0 1rem; }
+  li { margin-bottom: 0.55rem; }
+  li b { color: var(--ink); }
+  .num { font-weight: 650; color: var(--accent-deep); }
+  .box { background: var(--wash); border-left: 3px solid var(--accent); padding: 0.9rem 1.15rem;
+    border-radius: 0 6px 6px 0; margin: 1.2rem 0; }
+  .box p:last-child { margin-bottom: 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; margin: 1rem 0; }
+  th { text-align: left; font-weight: 600; font-size: 0.73rem; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--muted); padding: 0.45rem 0.7rem 0.45rem 0; border-bottom: 1px solid var(--muted); }
+  td { padding: 0.5rem 0.7rem 0.5rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .scroll { overflow-x: auto; } .scroll table { min-width: 560px; }
+  .src { font-size: 0.78rem; color: var(--muted); }
+  .never { border-left-color: var(--bad); background: transparent; border: 1px solid var(--line); border-left: 3px solid var(--bad); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="eyebrow">NURA · Team Brief · August 2026</p>
+  <h1>Everything we know, on one page.</h1>
+  <p class="kicker">The criticals from three rounds of research — market, competition, science, and strategy. Every number here is sourced; full detail and citations live in the four linked documents at the bottom. Written to be read in 10 minutes by any of us, whatever our background.</p>
+
+  <hr class="rule">
+
+  <h2>1 · Why NURA exists</h2>
+  <p>When Neelam came home after her heart attack (4 stents, March 2026), the hospital's job ended — and the family's began: four specialists, dozens of reports, medicines that affect kidneys and liver, and nobody explaining the whole picture. The family became the care coordinator with zero training. NURA turns that family's plastic bag of reports into understanding: what's happening, what's trending, what to ask the doctor next.</p>
+
+  <h2>2 · The problem is huge and measured (not assumed)</h2>
+  <ul>
+    <li><span class="num">~300,000</span> cardiac procedures a year in India (200K+ angioplasties). Each one sends a family home to figure things out alone.</li>
+    <li>India has <span class="num">~23</span> cardiac rehab centres for <span class="num">3.3 million</span> patients who need one every year — 1 seat per 360 patients, and the gap is worst in North India (our region). Doctors refer only 20–30% of patients anyway. <b>Structured recovery support at home basically does not exist.</b></li>
+    <li>Indian caregiver studies: <span class="num">70%</span> report workload spikes, <span class="num">76%</span> anxiety/depression, <span class="num">80%+</span> financial worry. The buyer's pain is documented in research, not imagined by us.</li>
+    <li><span class="num">~159M</span> Indians are 60+, ~89% of them living with at least one chronic disease. 90+ crore ABHA health IDs mean digital records are becoming normal — but nobody makes them <em>understandable</em>.</li>
+  </ul>
+
+  <h2>3 · The market gap, in one sentence each</h2>
+  <ul>
+    <li><b>Records apps (Eka Care, DRiefcase):</b> store files. Free. Don't explain anything deeply, don't serve the caregiver.</li>
+    <li><b>AI chat (August AI — 3.5M users):</b> answers one question at a time, forgets you, knows nothing about your family. Free.</li>
+    <li><b>Booking platforms (Practo, 1mg, MediBuddy):</b> sell transactions — consults, tests, medicines. Proof Indians pay ~₹400/mo for health value.</li>
+    <li><b>Elder-care services (Anvayaa, Emoha):</b> send humans to your home. ₹10,000–45,000/month.</li>
+    <li><b>US longevity apps (Function, Superpower):</b> biomarker dashboards for healthy rich people. $199–499/yr.</li>
+  </ul>
+  <div class="box"><p><b>The white space:</b> nobody sells <em>family recovery intelligence</em> — and nobody sells anything health-related in the <b>₹200–1,500/month</b> band. Below it: transactions. Above it: human services. That band is ours if the product earns it.</p></div>
+  <p>Market size (built bottom-up, cross-checked top-down): ~75M Indian households manage a serious chronic condition (TAM ~₹9,000 Cr/yr). ~12M of them are urban digital payers, plus ~5M NRI households supporting parents from abroad (SAM ~₹4,000 Cr/yr). Realistic year-3 capture through our wedge: ~₹4.5–9 Cr ARR. Honest numbers, not hockey sticks.</p>
+
+  <h2>4 · What the science says (why our product can be real intelligence)</h2>
+  <p>Feynman version: <b>a single test number means little; the direction it's moving means almost everything.</b> Medicine already knows which trends predict trouble — that knowledge just never reaches families. Examples from our evidence base (every one backed by 2–3 independent sources):</p>
+  <ul>
+    <li>After a stent, "bad cholesterol" (LDL) must be <b>under 55</b> — not the "normal under 100" printed on the lab report. Families don't know this; many patients silently miss the target. One rule = one saved conversation with a cardiologist.</li>
+    <li>A creatinine (kidney) rise of <b>≥25%</b> within 2–3 days of an angiography is a known complication (~7% of cases). Knowing to test on day 2–3 is the whole game — this is exactly what happened around Neelam's kidneys.</li>
+    <li>The heart-protecting medicines themselves push potassium out of its safe band — guidelines say check within <b>1 week</b> of any dose change, then monthly. Almost no family knows this schedule. NURA turns it into reminders.</li>
+    <li>Inflammation (hs-CRP ≥2) predicts death after a heart attack <em>better than cholesterol</em> — from a 31,000-patient analysis — and most Indian follow-up panels don't even include the test. A family that asks for it is ahead of the system.</li>
+    <li><b>Lifestyle is the biggest lever of all:</b> quitting smoking after a heart attack cuts death risk by <b>~46%</b> — more than most drugs. Every extra 1,000 steps a day ≈ <b>15%</b> lower mortality (plateau ~6–8K steps for 60+). Cardiac rehab (structured exercise) cuts cardiac death by <b>26%</b> — the strongest evidence in our whole base, for the thing India has no infrastructure to deliver.</li>
+    <li>Nine values already on every full-body panel (albumin, CRP, glucose, RDW…) combine into a validated <b>"biological age"</b> (PhenoAge). "Mom's body got 1.8 years younger during recovery" — hope, computed from tests already done.</li>
+  </ul>
+
+  <h2>5 · What NURA actually is (and is not)</h2>
+  <div class="box">
+    <p><b>Not a chatbot.</b> A chatbot makes up its answer each time. NURA has a curated evidence library (the Compendium: 27 claims, 55+ sources, every claim corroborated across multiple independent papers/guidelines) compiled into fixed rules. The AI only <em>reads</em> reports and <em>translates</em> into plain language. Same input → same insight → with its citation shown. That's our safety, our regulatory position (we inform and prepare, never diagnose or prescribe), and our moat.</p>
+  </div>
+  <p><b>The daily loop matters more than the reports.</b> Lab reports come monthly — a labs-only app gets opened monthly and dies. Recovery is daily: medicines, walks, meals, cigarettes not smoked. So we climb an "input ladder": WhatsApp micro check-ins under 60 seconds/day (pilot) → habits and weekly family digest (MVP) → smartwatch/phone data via Android Health Connect (Phase 2) → the correlation engine: "8-week walking streak — resting heart rate down 6 bpm, exactly what the rehab studies predict" (Phase 3). Daily inputs = retention = the proprietary dataset = the deep intelligence. One thing feeds all three.</p>
+
+  <h2>6 · The two entry paths — we test both, the data decides</h2>
+  <div class="scroll"><table>
+    <tr><th></th><th>Path 1 · WhatsApp direct</th><th>Path 2 · Through clinics</th></tr>
+    <tr><td><b>How</b></td><td>Find families ourselves: support groups, communities, founder story, NRI outreach</td><td>Ask 2–3 Gurugram practices to hand our free "Recovery Companion Program" to discharged patients (first ask: Neelam's cardiologist — gratitude + oversight, not a sales pitch)</td></tr>
+    <tr><td><b>Strength</b></td><td>Fully digital (fits our mostly-remote team); we control everything; emotional story travels</td><td>Doctor's endorsement melts trust barriers; families arrive at peak motivation with complete files; near-zero acquisition cost</td></tr>
+    <tr><td><b>Risk</b></td><td>Cold-start trust; grinding acquisition; free AI anchors price expectations down</td><td>Doctor relationship untested; needs some in-person Gurugram time; activation depends on clinic staff actually handing it over</td></tr>
+    <tr><td><b>Who pays</b></td><td colspan="2">Families, both paths, year one. Clinics pay nothing now — we sell them a practice dashboard at month 6–9 only if usage data proves it (this is how Eka won doctors: free first, 65K free → 12K paid)</td></tr>
+    <tr><td><b>Decides</b></td><td colspan="2">Pilot runs both head-to-head for 10 weeks. We compare: cost per activated family · reports per family · payment conversion · doctor enthusiasm. The winner gets Phase 1's weight. Not opinions — a scoreboard.</td></tr>
+  </table></div>
+  <p class="src">Why not sell software to clinics first: Indian doctors are the hardest software buyers (incumbents give EMRs away free), our team can't run field sales, and privacy law (DPDP) requires each family to consent to us directly anyway — a clinic can't just hand over patient data.</p>
+
+  <h2>7 · The rules we never break</h2>
+  <div class="box never">
+    <ul style="margin:0">
+      <li><b>Never diagnose, never prescribe, never advise changing treatment.</b> We explain, organise, track, and prepare questions. Every output says "discuss with your doctor." (This keeps us a wellness/information tool under CDSCO rules — and it's also just right.)</li>
+      <li><b>No clinical claim on a single paper.</b> Minimum two independent established sources; every insight carries its citation.</li>
+      <li><b>Every family consents directly to us.</b> Their data, their control, easy deletion. Privacy is the product promise (DPDP fully enforced May 2027 — we build the habits now).</li>
+      <li><b>Human + doctor review on every output</b> until accuracy is proven. One unsafe answer ends the company.</li>
+      <li><b>The doctor stays the hero.</b> NURA makes families prepared and doctors' lives easier — never competes with them.</li>
+    </ul>
+  </div>
+
+  <h2>8 · What happens next</h2>
+  <p>A 10-week pilot with 15–20 real families over WhatsApp — no code, ~₹35K at risk out of the ₹5,00,000 build budget (the big money unlocks only after the pilot passes its gates: families share records, feel prepared, some pay, zero unsafe outputs, at least one channel repeats). Then no-code product → intelligence layer → family health OS. Actions, owners, and week-one tasks live in the HQ doc — owners get assigned in our first meeting.</p>
+
+  <hr class="rule">
+  <p class="src">Full detail with all citations: <a href="https://claude.ai/code/artifact/7992e25b-73f2-4e7e-aac8-040a778c0c49">Strategy Report</a> (market, competitors, pricing, TAM/SAM/SOM) · <a href="https://claude.ai/code/artifact/ee337d06-ba65-4591-8222-73d9c6a5c121">Entry Strategy</a> (Porter, SWOT, Blue Ocean, the two paths) · <a href="https://claude.ai/code/artifact/b810765d-19f7-4b01-95d5-d6ba05f64b23">Execution Playbook</a> (features, roadmap, budget, input ladder) · <a href="https://claude.ai/code/artifact/d4378025-f005-4b1e-aa6b-45de6d129d95">Biomarker Evidence Compendium</a> (the science, graded and cited) · NURA HQ doc on Google Drive (actions &amp; decisions).</p>
+  <p class="kicker">One mishap prevented is a life saved. That's the whole company.</p>
+</div>
+</body>
+</html>

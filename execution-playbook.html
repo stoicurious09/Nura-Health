@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The offering, feature roadmap, team plan, input ladder, pricing, and ₹5L budget for building NURA from pilot to product.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AD%3C/text%3E%3C/svg%3E">
+<title>NURA — Execution Playbook</title>
+<style>
+  :root {
+    --bg: #faf9f7; --surface: #ffffff; --ink: #1d1c1a; --ink2: #57534c; --muted: #8a867e;
+    --line: #e7e4dd; --accent: #0e7a6c; --accent-deep: #0b5f55; --wash: #edf5f3;
+    --chart-surface: #fcfcfb; --grid: #e1e0d9; --axis: #c3c2b7;
+    --bar: #2a78d6; --crit-path: #0e7a6c; --good: #0ca30c; --crit: #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141413; --surface: #1d1c1b; --ink: #f2f0ec; --ink2: #c4c0b8; --muted: #8a867e;
+      --line: #31302d; --accent: #45c0ab; --accent-deep: #6fd3c2; --wash: #17302b;
+      --chart-surface: #1a1a19; --grid: #2c2c2a; --axis: #383835;
+      --bar: #3987e5; --crit-path: #45c0ab; --good: #0ca30c; --crit: #e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141413; --surface: #1d1c1b; --ink: #f2f0ec; --ink2: #c4c0b8; --muted: #8a867e;
+    --line: #31302d; --accent: #45c0ab; --accent-deep: #6fd3c2; --wash: #17302b;
+    --chart-surface: #1a1a19; --grid: #2c2c2a; --axis: #383835;
+    --bar: #3987e5; --crit-path: #45c0ab; --good: #0ca30c; --crit: #e66767;
+  }
+  body { background: var(--bg); color: var(--ink); margin: 0;
+    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 3.5rem 1.25rem 6rem; }
+  h1, h2, h3 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    line-height: 1.2; text-wrap: balance; margin: 0; }
+  h1 { font-size: 2.6rem; font-weight: 600; letter-spacing: -0.01em; }
+  h2 { font-size: 1.7rem; font-weight: 600; margin: 3.2rem 0 0.9rem; }
+  h3 { font-size: 1.15rem; font-weight: 600; margin: 1.8rem 0 0.5rem; }
+  p { margin: 0 0 1rem; }
+  .eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 0.6rem; }
+  .kicker { color: var(--muted); font-size: 0.85rem; margin-top: 1rem; }
+  .rule { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
+  a { color: var(--accent-deep); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  .hook { background: var(--wash); border-left: 3px solid var(--accent); padding: 1.1rem 1.3rem;
+    border-radius: 0 6px 6px 0; margin: 1.5rem 0; }
+  .hook p:last-child { margin-bottom: 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; margin: 1.2rem 0; }
+  th { text-align: left; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted); padding: 0.5rem 0.75rem 0.5rem 0;
+    border-bottom: 1px solid var(--axis); }
+  td { padding: 0.6rem 0.75rem 0.6rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .scroll { overflow-x: auto; }
+  .scroll table { min-width: 640px; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  ol, ul { padding-left: 1.3rem; margin: 0 0 1rem; }
+  li { margin-bottom: 0.45rem; }
+  .phase { border: 1px solid var(--line); background: var(--surface); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin-bottom: 0.9rem; }
+  .phase h3 { margin-top: 0; }
+  .phase .meta { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.5rem; }
+  .pill { display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 2px 9px; border-radius: 99px; background: var(--wash);
+    color: var(--accent-deep); vertical-align: middle; }
+  .fig { background: var(--chart-surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1.2rem 1.2rem 0.9rem; margin: 1.5rem 0; }
+  .fig figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.7rem; }
+  figure { margin: 0; }
+  svg text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .budget { margin: 1.3rem 0; display: grid; gap: 9px; }
+  .brow { display: grid; grid-template-columns: 15rem 1fr 5.5rem; gap: 10px; align-items: center; font-size: 0.86rem; }
+  .brow .lbl { color: var(--ink2); }
+  .brow .track { background: none; height: 16px; position: relative; }
+  .brow .fill { position: absolute; inset: 0 auto 0 0; background: var(--bar); border-radius: 0 4px 4px 0; }
+  .brow .val { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  @media (max-width: 560px) { .brow { grid-template-columns: 1fr 4.8rem; } .brow .track { display: none; } }
+  .week td:first-child { font-weight: 600; white-space: nowrap; color: var(--accent-deep); }
+  .footnote { font-size: 0.85rem; color: var(--ink2); }
+  .free { color: var(--good); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="eyebrow">NURA · Execution Playbook · August 2026</p>
+  <h1>From one family's binder of reports to a product — in phases, on a critical path, under ₹5 lakh.</h1>
+  <p class="kicker">Offering, feature roadmap, pricing, budget, and the week-by-week plan. Companion document: <em>NURA Strategy Report</em> (market evidence behind every choice here).</p>
+
+  <hr class="rule">
+
+  <h2>1 · The fundamental offering</h2>
+  <div class="hook">
+    <p><strong>The hook — one sentence a worried son or daughter instantly understands:</strong></p>
+    <p style="font-family:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif; font-size:1.25rem; line-height:1.45;">"Send us your parent's medical reports on WhatsApp. Within a day, you'll understand what's going on in their body — and walk into the next doctor's visit prepared."</p>
+    <p>Free taste: a plain-language <strong>Health Picture</strong> from their reports. The paid product: NURA keeps watching — trends across every organ system, medication schedules, a prep sheet before every consultation, and quiet alerts when something drifts. Every artifact ends with "questions to ask your doctor" — NURA prepares families, it never replaces doctors.</p>
+  </div>
+  <p>Why this hook: it demands zero installs (WhatsApp), zero behaviour change, monetises the exact moment of highest motivation (a health crisis), and every report uploaded deepens the proprietary family-data moat. It is the productised version of what your family needed on the day Neelam came home.</p>
+
+  <h2>2 · Feature architecture</h2>
+  <p>Everything maps to one engine — <em>ingest family health data → structure it → make it intelligible → make it anticipatory</em>. The intelligible/anticipatory half is <strong>not a chatbot</strong>: it is the <a href="https://claude.ai/code/artifact/d4378025-f005-4b1e-aa6b-45de6d129d95">Biomarker Evidence Compendium</a> — curated, multi-source-corroborated, citation-carrying clinical evidence — compiled into deterministic rules (thresholds, trends, cadences), with the AI model doing only extraction and plain-language translation. Use cases (post-op, newborn, preventive, dialysis) are evidence packs added to that engine in order of urgency-to-pay.</p>
+  <div class="scroll"><table>
+    <tr><th>Feature</th><th>Bucket</th><th>Tier</th><th>Phase</th></tr>
+    <tr><td>WhatsApp intake of reports (PDF/photo/voice)</td><td>Must-have</td><td class="free">Free</td><td>0</td></tr>
+    <tr><td>Plain-language Health Picture per member</td><td>Must-have</td><td class="free">Free (1/mo)</td><td>0</td></tr>
+    <tr><td>Consultation prep sheet (history, questions, meds list)</td><td>Must-have</td><td>Paid</td><td>0</td></tr>
+    <tr><td>Biomarker trend timeline across all reports</td><td>Must-have</td><td>Paid</td><td>1</td></tr>
+    <tr><td>Family vault — profiles for every member, shared access</td><td>Must-have</td><td>Paid</td><td>1</td></tr>
+    <tr><td>Medication &amp; follow-up schedule with reminders</td><td>Must-have</td><td>Paid</td><td>1</td></tr>
+    <tr><td>Post-consultation capture (voice note → structured summary)</td><td>Good-to-have</td><td>Paid</td><td>1</td></tr>
+    <tr><td>Cross-organ trend alerts ("creatinine rising 3 tests in a row — flag for your nephrologist")</td><td>Must-have</td><td>Paid</td><td>2</td></tr>
+    <tr><td>Correlative insights across diet, meds, vitals, symptoms</td><td>Good-to-have</td><td>Paid</td><td>2</td></tr>
+    <tr><td>ABHA/ABDM record auto-pull</td><td>Good-to-have</td><td class="free">Free</td><td>2</td></tr>
+    <tr><td>Multi-modal uploads (videos, wearables, device readings)</td><td>Good-to-have</td><td>Paid</td><td>2</td></tr>
+    <tr><td>Use-case packs: newborn &amp; vaccines · preventive 30s checkup · dialysis</td><td>Expansion</td><td>Paid</td><td>3</td></tr>
+    <tr><td>Native mobile apps (iOS/Android)</td><td>Expansion</td><td>—</td><td>3</td></tr>
+    <tr><td>Doctor-facing share view (one-link summary for the specialist)</td><td>Good-to-have</td><td class="free">Free</td><td>3</td></tr>
+  </table></div>
+  <p class="footnote">Free tier exists to build trust and feed the data moat; paid tiers sell artifacts and vigilance, not "access." The doctor-facing share view is free by design — every specialist who sees a NURA summary is a distribution channel.</p>
+
+  <h2>3 · Roadmap on the critical path</h2>
+
+  <div class="phase"><div class="meta">Phase 0 · Weeks 1–8 · ~₹35K · no code</div>
+    <h3>Concierge validation — "NURA Care," delivered by hand</h3>
+    <p>15–20 families, WhatsApp + Claude-assisted workflows + a doctor advisor reviewing every output. You are the product; the software comes later. Every claim in the Strategy Report's validation gauntlet (A1–A5) gets its answer here.</p></div>
+  <div class="phase"><div class="meta">Phase 1 · Months 3–5 · ~₹1.1L · no-code build</div>
+    <h3>Productise what worked</h3>
+    <p>Self-serve web portal (Softr/Glide on Airtable), automated WhatsApp flows, the trend timeline, family vault, payments. Concierge tier continues at premium price — it is now the white-glove plan, not the only plan.</p></div>
+  <div class="phase"><div class="meta">Phase 2 · Months 6–9 · ~₹2.4L · first real code</div>
+    <h3>The intelligence layer</h3>
+    <p>Freelance developer + AI-assisted build: biomarker extraction pipeline, cross-organ trend alerts, correlative insights, ABHA integration. This is where the ₹5L's largest tranche goes — after validation, never before.</p></div>
+  <div class="phase"><div class="meta">Phase 3 · Months 10+ · funded by revenue / raise</div>
+    <h3>Family health OS</h3>
+    <p>Native apps, use-case packs (newborn, preventive, dialysis), doctor share links, overseas push. By now the pitch to investors is: validated retention, mishaps-averted stories, and a proprietary family-data asset.</p></div>
+
+  <h3>Phase 0 critical path (CPM)</h3>
+  <figure class="fig">
+    <svg viewBox="0 0 740 300" role="img" aria-label="Critical path diagram for the 8-week concierge phase. Critical path: define offer, build AI workflow, recruit families, run concierge loop, payment test, decision gate. Parallel non-critical tasks: data vault setup and doctor advisor onboarding.">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--muted)"></path>
+        </marker>
+        <marker id="ahc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--crit-path)"></path>
+        </marker>
+      </defs>
+      <!-- critical path row y=110 -->
+      <g font-size="11.5">
+        <rect x="14" y="110" width="104" height="52" rx="8" fill="none" stroke="var(--crit-path)" stroke-width="2"></rect>
+        <text x="66" y="131" text-anchor="middle" fill="var(--ink)" font-weight="600">Offer + kit</text>
+        <text x="66" y="147" text-anchor="middle" fill="var(--muted)">wk 1</text>
+        <rect x="148" y="110" width="104" height="52" rx="8" fill="none" stroke="var(--crit-path)" stroke-width="2"></rect>
+        <text x="200" y="131" text-anchor="middle" fill="var(--ink)" font-weight="600">AI workflow</text>
+        <text x="200" y="147" text-anchor="middle" fill="var(--muted)">wk 1–2</text>
+        <rect x="282" y="110" width="104" height="52" rx="8" fill="none" stroke="var(--crit-path)" stroke-width="2"></rect>
+        <text x="334" y="131" text-anchor="middle" fill="var(--ink)" font-weight="600">Recruit 20</text>
+        <text x="334" y="147" text-anchor="middle" fill="var(--muted)">wk 2–4</text>
+        <rect x="416" y="110" width="118" height="52" rx="8" fill="none" stroke="var(--crit-path)" stroke-width="2"></rect>
+        <text x="475" y="131" text-anchor="middle" fill="var(--ink)" font-weight="600">Concierge loop</text>
+        <text x="475" y="147" text-anchor="middle" fill="var(--muted)">wk 3–8</text>
+        <rect x="564" y="110" width="80" height="52" rx="8" fill="none" stroke="var(--crit-path)" stroke-width="2"></rect>
+        <text x="604" y="131" text-anchor="middle" fill="var(--ink)" font-weight="600">₹ test</text>
+        <text x="604" y="147" text-anchor="middle" fill="var(--muted)">wk 5–6</text>
+        <rect x="668" y="104" width="62" height="64" rx="31" fill="var(--wash)"></rect>
+        <text x="699" y="131" text-anchor="middle" fill="var(--accent-deep)" font-weight="650">GO /</text>
+        <text x="699" y="147" text-anchor="middle" fill="var(--accent-deep)" font-weight="650">KILL</text>
+        <!-- parallel tasks -->
+        <rect x="148" y="24" width="104" height="48" rx="8" fill="none" stroke="var(--axis)" stroke-width="1.5"></rect>
+        <text x="200" y="43" text-anchor="middle" fill="var(--ink2)">Data vault</text>
+        <text x="200" y="59" text-anchor="middle" fill="var(--muted)">wk 1 · slack 1wk</text>
+        <rect x="282" y="216" width="118" height="48" rx="8" fill="none" stroke="var(--axis)" stroke-width="1.5"></rect>
+        <text x="341" y="235" text-anchor="middle" fill="var(--ink2)">Doctor advisor</text>
+        <text x="341" y="251" text-anchor="middle" fill="var(--muted)">wk 2–3 · slack 2wk</text>
+      </g>
+      <g stroke="var(--crit-path)" stroke-width="2" fill="none">
+        <line x1="118" y1="136" x2="146" y2="136" marker-end="url(#ahc)"></line>
+        <line x1="252" y1="136" x2="280" y2="136" marker-end="url(#ahc)"></line>
+        <line x1="386" y1="136" x2="414" y2="136" marker-end="url(#ahc)"></line>
+        <line x1="534" y1="136" x2="562" y2="136" marker-end="url(#ahc)"></line>
+        <line x1="644" y1="136" x2="666" y2="136" marker-end="url(#ahc)"></line>
+      </g>
+      <g stroke="var(--muted)" stroke-width="1.5" fill="none">
+        <path d="M 118 124 C 130 100, 134 60, 146 50" marker-end="url(#ah)"></path>
+        <path d="M 252 55 C 290 65, 400 85, 452 108" marker-end="url(#ah)"></path>
+        <path d="M 252 150 C 262 190, 268 230, 280 238" marker-end="url(#ah)"></path>
+        <path d="M 400 238 C 430 230, 450 200, 466 164" marker-end="url(#ah)"></path>
+      </g>
+      <g font-size="11">
+        <text x="14" y="290" fill="var(--ink2)"><tspan font-weight="650" fill="var(--crit-path)">━ Critical path (8 weeks)</tspan>   — any slip here slips the decision gate; parallel tasks carry slack.</text>
+      </g>
+    </svg>
+    <figcaption>Phase 0 network. Critical path: offer definition → AI workflow → family recruitment → concierge delivery → payment test → go/kill decision. Recruitment is the riskiest duration — start channel-building in week 1, not week 2.</figcaption>
+  </figure>
+
+  <h2>4 · Pilot → MVP → product: the compounding chain</h2>
+  <p>Each stage exists to extract an asset the next stage is built from. This is the thread that turns a WhatsApp pilot into a differentiated software product rather than a service that never scales:</p>
+  <div class="scroll"><table>
+    <tr><th>Stage</th><th>What it extracts</th><th>What that becomes next</th></tr>
+    <tr><td>Pilot (concierge, wk 1–10)</td><td>Trust playbook (what makes families share records) · a labeled corpus of real Indian lab reports in every messy format · the exact questions families ask · which insights trigger "aha" vs anxiety · payment truth</td><td>The extraction pipeline's training/eval set; the Health Picture template that MVP automates; the pricing page; the onboarding script</td></tr>
+    <tr><td>MVP (no-code product, mo 3–5)</td><td>Retention curves · self-serve activation friction points · trend-dashboard engagement · referral loop mechanics · doctor reactions to share links</td><td>The spec for what deserves real engineering; proof for advisors/investors; the metrics baseline</td></tr>
+    <tr><td>Product (intelligence layer, mo 6–9)</td><td>Structured biomarker time-series per family · evidence-rule hit rates (which alerts fire, which get thanked) · compendium coverage gaps</td><td>The family health graph + tuned evidence engine — the two assets competitors cannot copy by shipping a feature</td></tr>
+    <tr><td>Established product (mo 10+)</td><td>Multi-use-case evidence packs · multi-generation family data · documented averted-mishap stories</td><td>The moat compounding: every new member, report, and pack raises switching costs and deepens the engine</td></tr>
+  </table></div>
+  <p class="footnote">The discipline this table enforces: never build a stage's software before the previous stage has produced the asset it depends on. The pilot is not a small launch — it is the data-collection instrument for everything after it.</p>
+
+  <h2>5 · The input ladder — from monthly reports to daily life</h2>
+  <p><strong>The engagement physics NURA must respect:</strong> lab reports arrive monthly at best — a labs-only product gets opened monthly and quietly churns. Recovery, though, happens daily: medicines, walks, meals, sleep, cigarettes not smoked. Daily inputs are simultaneously the <em>retention loop</em> (the reason to open NURA every day), the <em>correlation dataset</em> (lifestyle in, biomarker trends out — the deep intelligence), and the <em>evidence base's biggest levers</em> (quitting smoking cuts post-MI mortality ~46%; every +1,000 daily steps ~15% — see Compendium §8b). The data strategy climbs a ladder, one rung per phase, never asking for more than the family's habit can carry:</p>
+  <div class="scroll"><table>
+    <tr><th>Rung</th><th>Phase</th><th>Inputs</th><th>How captured</th></tr>
+    <tr><td class="f">0 · Baseline + micro check-ins</td><td>Pilot</td><td>Onboarding lifestyle baseline (smoking, alcohol, diet pattern, activity, sleep, occupation/stress) + the <b>Daily 2</b> (meds taken? moved today?) and <b>Weekly 5</b> (weight, BP, symptoms, one meal photo, energy 1–5)</td><td>WhatsApp taps — under 60 seconds/day, answerable by patient or caregiver; missed days forgiven by design, never guilted</td></tr>
+    <tr><td class="f">1 · Structured habit loop</td><td>MVP (mo 3–5)</td><td>Streaks, rehab-plan adherence, med-schedule confirmations, phone step counts (manual entry)</td><td>Portal + WhatsApp; weekly <b>family digest</b> ("Papa walked 5 of 7 days; BP trending down") — the shareable artifact that makes the whole family the retention engine</td></tr>
+    <tr><td class="f">2 · Device integration</td><td>Phase 2 (mo 6–9)</td><td>Steps, resting HR, sleep, SpO₂ from wearables — the exact vitals whose evidence is already in the Compendium</td><td>India-pragmatic order: <b>Android Health Connect first</b> (India is Android-dominant; one integration aggregates Samsung/Fitbit/Noise/boAt data), then Fitbit Web API; Apple HealthKit requires the native iOS app, so it lands with Phase 3 mobile apps</td></tr>
+    <tr><td class="f">3 · Correlation engine</td><td>Phase 3 (mo 10+)</td><td>Lifestyle streams × biomarker trends × evidence base</td><td>The payoff: "8-week walking streak — resting HR down 6 bpm, in line with the rehab evidence" · "LDL fell 18 mg/dL since the diet change" · PhenoAge trajectory as the family's hope metric. Personal patterns, framed against population evidence, always "discuss with your doctor"</td></tr>
+  </table></div>
+  <p class="footnote">Two disciplines keep this honest: self-reported data is noisy, so the engine weights device-captured and lab-verified data above taps; and the check-in burden is a product surface — every added question must buy its keep in retention or correlation value, or it gets cut. Pilot additions: Vikram adds the lifestyle baseline to the intake script · Ankush adds lifestyle fields + per-day tracking to the tracker · Abhishek builds the Daily 2/Weekly 5 WhatsApp templates · Prithvi designs the weekly family digest.</p>
+
+  <h2>6 · The pilot, week by week — team of four, part-time</h2>
+  <p>Four owners, each with one clear lane and a few hours a week. Paced for a side-project team: 10 weeks, with weeks 1–2 as setup. <strong>V</strong> = Vikram (consumer insight, research, GTM, strategy) · <strong>An</strong> = Ankush (tech operator) · <strong>P</strong> = Prithvi (marketing strategy &amp; ops) · <strong>Ab</strong> = Abhishek (tech builder).</p>
+  <div class="scroll"><table>
+    <tr><th>Lane (single owner, others consult)</th><th>Owner</th><th>Core responsibilities</th></tr>
+    <tr><td>Offer, validation &amp; clinical trust</td><td>V</td><td>NURA promise + disclaimers · intake &amp; interview scripts · doctor-advisor recruitment · validation scoring (A1–A5) · go/kill memo · weekly sync chair</td></tr>
+    <tr><td>Operations &amp; data stewardship</td><td>An</td><td>WhatsApp Business setup · family vault structure (Drive/Airtable) · consent flow &amp; privacy hygiene · metrics tracker · daily intake routing · turnaround SLAs</td></tr>
+    <tr><td>Channels &amp; brand</td><td>P</td><td>Recruit 15–20 families (support groups, discharge desks, founder-story posts) · Canva templates for Health Picture/prep sheet · payment-test comms · testimonial &amp; story collection</td></tr>
+    <tr><td>Intelligence workflow</td><td>Ab</td><td>Claude-assisted pipeline: report → biomarker extract → Health Picture draft · compendium rules encoded as checklists · NotebookLM notebook upkeep · Phase-1 no-code portal spike</td></tr>
+  </table></div>
+  <div class="scroll"><table class="week">
+    <tr><th>Week</th><th>Deliverable · owner</th></tr>
+    <tr><td>1–2</td><td><b>Setup.</b> V: promise, disclaimers, intake script. An: WhatsApp Business, per-family vault, consent template, tracker. Ab: extraction workflow + Health Picture template wired to the Compendium's rules; NotebookLM notebook loaded with the source pack. P: channel list + founder-story drafts. All: run Neelam's complete file end-to-end — family zero is the quality bar every member signs off on.</td></tr>
+    <tr><td>3–4</td><td><b>Dry run.</b> 2–3 friendly families through the full loop (V sources, An operates, Ab generates, P packages). V recruits the doctor advisor (₹50K budgeted) — every outgoing Health Picture gets clinical review from here on. P starts public channel-building.</td></tr>
+    <tr><td>5–6</td><td><b>Scale to 15–20 families.</b> P drives recruitment; An holds a 24h turnaround SLA on free Health Pictures; Ab iterates extraction against real report formats; V runs 15-minute feedback calls with every family.</td></tr>
+    <tr><td>7–8</td><td><b>Payment test.</b> V+P make the real ask: NURA Care ₹999–1,499/mo, NRI $25–29/mo — cleanly, no discount-begging. Ab ships the first trend timeline (even as a beautiful PDF). An tracks conversion honestly.</td></tr>
+    <tr><td>9–10</td><td><b>Decide.</b> V scores A1–A5 and writes the go/kill memo; P compiles "walked in prepared" and averted-mishap stories; Ab freezes learnings into the Phase-1 no-code spec; An archives the pilot corpus (with consent) as the MVP's eval set. Team decision meeting: go / pivot / stop.</td></tr>
+  </table></div>
+
+  <h3>The Phase 0–1 stack (all founder-operable, no code)</h3>
+  <div class="scroll"><table>
+    <tr><th>Layer</th><th>Tool</th><th>~Cost/mo</th></tr>
+    <tr><td>Intake &amp; conversation</td><td>WhatsApp Business app (free) → WATI/AiSensy when automating in Phase 1</td><td class="num">₹0 → ₹2.5K</td></tr>
+    <tr><td>Intelligence</td><td>Claude Pro/Max (structured extraction, Health Pictures, prep sheets — with your review, then doctor review)</td><td class="num">₹2–8K</td></tr>
+    <tr><td>Records &amp; tracking</td><td>Airtable or Notion (family vault, biomarker tables, pilot metrics)</td><td class="num">₹0–2K</td></tr>
+    <tr><td>Portal (Phase 1)</td><td>Softr or Glide over Airtable — member dashboard, timeline, payments via Razorpay</td><td class="num">₹4–8K</td></tr>
+    <tr><td>Artifacts &amp; brand</td><td>Canva Pro — Health Picture and prep-sheet templates that look Apple-clean</td><td class="num">₹0.5K</td></tr>
+    <tr><td>Team knowledge layer</td><td>NotebookLM (free) — a NURA notebook loaded with the Evidence Compendium + source pack from Drive; the whole team queries the same vetted corpus instead of googling. (No API/connector exists, so it's maintained manually — add new sources as the compendium grows.)</td><td class="num">₹0</td></tr>
+  </table></div>
+
+  <h2>7 · Pricing</h2>
+  <div class="scroll"><table>
+    <tr><th>Tier</th><th>India</th><th>Overseas / NRI</th><th>What it buys</th></tr>
+    <tr><td>NURA Snapshot</td><td class="free">Free</td><td class="free">Free</td><td>1 member · uploads · 1 Health Picture/mo · doctor share link. Trust builder and data-moat feeder.</td></tr>
+    <tr><td>NURA Family</td><td class="num">₹299/mo · ₹2,499/yr</td><td class="num">$7.99/mo · $59/yr</td><td>Up to 6 members · unlimited Health Pictures · trend timeline · prep sheet before every visit · med schedule &amp; reminders · alerts (Phase 2).</td></tr>
+    <tr><td>NURA Care</td><td class="num">₹1,499/mo</td><td class="num">$29/mo</td><td>White-glove human + AI service for active recoveries — the Phase 0 product, kept forever as the premium tier and the highest-touch learning channel.</td></tr>
+  </table></div>
+  <p class="footnote">Anchors: Practo Plus ₹399/mo (transactional consults), full-body checkups ₹999–2,499/purchase, Superpower $199/yr in the US. NURA Family at ₹2,499/yr sits below a single comprehensive checkup; every renewal email leads with the artifacts delivered and the consultations it made count. The NRI tier is priced at a fraction of Anvayaa-style service plans while answering the same anxiety — and is expected to carry outsized revenue share early.</p>
+
+  <h2>8 · The ₹5,00,000 build budget</h2>
+  <div class="budget">
+    <div class="brow"><span class="lbl">Phase 2 dev sprints (freelance + AI-assisted)</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">₹1,90,000</span></div>
+    <div class="brow"><span class="lbl">Phase 1 no-code productisation</span><span class="track"><span class="fill" style="width:39%"></span></span><span class="val">₹75,000</span></div>
+    <div class="brow"><span class="lbl">AI APIs &amp; infra (12 months)</span><span class="track"><span class="fill" style="width:32%"></span></span><span class="val">₹60,000</span></div>
+    <div class="brow"><span class="lbl">Doctor advisor (output review, Phases 0–1)</span><span class="track"><span class="fill" style="width:26%"></span></span><span class="val">₹50,000</span></div>
+    <div class="brow"><span class="lbl">Brand &amp; artifact design</span><span class="track"><span class="fill" style="width:21%"></span></span><span class="val">₹40,000</span></div>
+    <div class="brow"><span class="lbl">Phase 0 tools &amp; stack (8 weeks)</span><span class="track"><span class="fill" style="width:18%"></span></span><span class="val">₹35,000</span></div>
+    <div class="brow"><span class="lbl">Contingency (10%)</span><span class="track"><span class="fill" style="width:26%"></span></span><span class="val">₹50,000</span></div>
+    <div class="brow"><span class="lbl" style="font-weight:650; color:var(--ink)">Total</span><span class="track"></span><span class="val">₹5,00,000</span></div>
+  </div>
+  <p class="footnote">The shape is the strategy: only ₹35K is at risk before the validation gate, ~₹1.1L more before real code, and the largest tranche unlocks only after families are paying. If Phase 0 kills the idea, ₹4.65L survives for the next one. AI API note: at Phase-1 scale (100–300 families), report extraction and Health-Picture generation should run ~₹2–5K/mo on Claude — the ₹60K line covers a year with headroom.</p>
+
+  <h2>9 · Unit economics sketch (to validate, not to worship)</h2>
+  <ul>
+    <li><strong>CAC:</strong> target near-zero in Year 1 — cardiac support groups, discharge-desk word of mouth, doctor share links, founder story. The payment test tells you if a family referred by another family converts; that referral loop is the business model.</li>
+    <li><strong>ARPU:</strong> blended ₹2,500/yr assumption (mix of ₹2,499 Family, ₹1,499/mo Care, and $59 NRI plans). 500 paying families ≈ ₹12.5L ARR — sustainability for a solo founder; 3,000 ≈ ₹75L ARR — a fundable seed story.</li>
+    <li><strong>Retention is the truth-teller:</strong> post-op urgency fades by month 6–9. The product must convert crisis users into ambient family-vault users (new members added, preventive packs) — measure month-6 retention above all else.</li>
+  </ul>
+
+  <h2>10 · North-star metrics &amp; gates</h2>
+  <div class="scroll"><table>
+    <tr><th>Gate</th><th>Metric</th><th>Threshold to advance</th></tr>
+    <tr><td>Phase 0 → 1</td><td>Validation gauntlet A1–A5 (Strategy Report §8)</td><td>A1, A2, A4 pass; ≥5 paying families</td></tr>
+    <tr><td>Phase 1 → 2</td><td>Self-serve activation &amp; month-3 retention</td><td>≥100 active families; ≥60% month-3 paid retention; support load &lt; 2h/day</td></tr>
+    <tr><td>Phase 2 → 3</td><td>Intelligence value &amp; safety</td><td>≥1 documented averted-mishap story/month; zero harmful AI outputs; NPS ≥ 50</td></tr>
+    <tr><td>North star</td><td>Families who walked into a consultation prepared this month</td><td>Growing every month — this is the mission, measured</td></tr>
+  </table></div>
+
+  <hr class="rule">
+  <p class="footnote"><strong>The first action, this week — one per owner:</strong> Vikram writes the NURA promise and books the first team sync · Ankush stands up WhatsApp Business and the family vault · Abhishek runs Neelam's complete file through the extraction → Health Picture workflow · Prithvi drafts the founder story and lists 20 recruitment doors. When Neelam's Health Picture makes her own family — the most motivated users on earth — feel structured and empowered, you have your demo, your quality bar, and your story. NURA starts at home.</p>
+  <p class="kicker">Build simply. Watch quietly. Speak only when it matters. One mishap prevented is a life saved.</p>
+</div>
+</body>
+</html>

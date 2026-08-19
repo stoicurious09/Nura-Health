@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A working concept of NURA's family health dashboard — body-system analytics, data-strength meters, and evidence-graded insights — modeled on a real recovery journey.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A0%3C/text%3E%3C/svg%3E">
+<title>NURA — Health Picture · Neelam (Concept)</title>
+<style>
+  :root {
+    --bg: #f7f6f3; --surface: #fdfdfc; --ink: #1d1c1a; --ink2: #57534c; --muted: #8a867e;
+    --line: #e7e4dd; --grid: #ecebe5; --axis: #c3c2b7;
+    --accent: #0e7a6c; --accent-deep: #0b5f55; --wash: #e9f3f1; --band: #eef5f3;
+    --data: #2a78d6; --data-soft: #9ec5f4;
+    --good: #0ca30c; --good-ink: #006300; --warn: #b97d0a; --serious: #c05621; --crit: #d03b3b;
+    --shadow: 0 1px 3px rgba(20,18,15,0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121211; --surface: #1c1b1a; --ink: #f2f0ec; --ink2: #c4c0b8; --muted: #8a867e;
+      --line: #2e2d2a; --grid: #262522; --axis: #3a3936;
+      --accent: #45c0ab; --accent-deep: #6fd3c2; --wash: #16302b; --band: #182b27;
+      --data: #3987e5; --data-soft: #1c5cab;
+      --good: #0ca30c; --good-ink: #4fc24f; --warn: #fab219; --serious: #ec835a; --crit: #e66767;
+      --shadow: none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121211; --surface: #1c1b1a; --ink: #f2f0ec; --ink2: #c4c0b8; --muted: #8a867e;
+    --line: #2e2d2a; --grid: #262522; --axis: #3a3936;
+    --accent: #45c0ab; --accent-deep: #6fd3c2; --wash: #16302b; --band: #182b27;
+    --data: #3987e5; --data-soft: #1c5cab;
+    --good: #0ca30c; --good-ink: #4fc24f; --warn: #fab219; --serious: #ec835a; --crit: #e66767;
+    --shadow: none;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); margin: 0;
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+  .demo-note { font-size: 0.78rem; color: var(--muted); text-align: center; padding: 0.5rem 0 1rem; }
+  header.top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 0.4rem 0 1.4rem; }
+  .logo { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 1.35rem; font-weight: 650; letter-spacing: 0.02em; color: var(--accent-deep); }
+  .fam { display: flex; gap: 8px; align-items: center; margin-left: auto; }
+  .avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+    font-size: 0.72rem; font-weight: 650; background: var(--line); color: var(--ink2); }
+  .avatar.active { background: var(--accent); color: #fff; outline: 2px solid var(--accent);
+    outline-offset: 2px; }
+  h1 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 1.9rem; font-weight: 600; margin: 0 0 0.2rem; letter-spacing: -0.01em; }
+  .sub { color: var(--ink2); font-size: 0.9rem; margin-bottom: 1.4rem; }
+  .sub b { color: var(--accent-deep); }
+  .grid { display: grid; gap: 14px; }
+  .hero { grid-template-columns: 1.1fr 1.4fr 1.1fr; }
+  .cols-2 { grid-template-columns: 0.9fr 2.1fr; }
+  .cards-3 { grid-template-columns: repeat(3, 1fr); }
+  .charts-2 { grid-template-columns: 1fr 1fr; }
+  .life-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 900px) { .hero, .cols-2, .charts-2 { grid-template-columns: 1fr; } .cards-3 { grid-template-columns: 1fr 1fr; } .life-4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { .cards-3, .life-4 { grid-template-columns: 1fr; } }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: 1rem 1.1rem; box-shadow: var(--shadow); }
+  .k { font-size: 0.68rem; font-weight: 650; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .big { font-size: 2rem; font-weight: 650; line-height: 1.1; letter-spacing: -0.01em; }
+  .big small { font-size: 0.95rem; font-weight: 500; color: var(--ink2); }
+  .delta-good { color: var(--good-ink); font-weight: 650; font-size: 0.86rem; }
+  section { margin-top: 1.8rem; }
+  h2 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 1.25rem; font-weight: 600; margin: 0 0 0.7rem; }
+  h2 span { font-family: system-ui, sans-serif; font-size: 0.78rem; color: var(--muted); font-weight: 500; margin-left: 8px; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; font-weight: 650;
+    padding: 2px 9px; border-radius: 99px; border: 1px solid var(--line); }
+  .chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .chip.good { color: var(--good-ink); }
+  .chip.watch { color: var(--warn); }
+  .chip.discuss { color: var(--serious); }
+  .chip.unknown { color: var(--muted); } .chip.unknown::before { background: none; border: 1.5px dashed var(--muted); width: 6px; height: 6px; }
+  .syscard .head { display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem; }
+  .syscard .head .nm { font-weight: 650; font-size: 0.95rem; }
+  .syscard .head .chip { margin-left: auto; }
+  .kv { display: flex; align-items: baseline; gap: 8px; margin: 0.2rem 0 0.3rem; }
+  .kv .v { font-size: 1.35rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .kv .u { font-size: 0.78rem; color: var(--muted); }
+  .insight { font-size: 0.83rem; color: var(--ink2); margin-top: 0.45rem; }
+  .strength { display: flex; gap: 3px; margin-top: 0.55rem; align-items: center; }
+  .strength i { width: 14px; height: 5px; border-radius: 2px; background: var(--line); }
+  .strength i.on { background: var(--accent); }
+  .strength span { font-size: 0.7rem; color: var(--muted); margin-left: 6px; }
+  svg { display: block; max-width: 100%; height: auto; }
+  svg text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; }
+  .figcap { font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; }
+  .gradeA, .gradeB { display: inline-block; font-size: 0.64rem; font-weight: 700; color: #fff;
+    border-radius: 4px; padding: 1px 6px; vertical-align: 1px; }
+  .gradeA { background: var(--accent); } .gradeB { background: var(--data); }
+  .feed .card { margin-bottom: 10px; }
+  .feed .t { font-weight: 650; font-size: 0.93rem; margin-bottom: 0.25rem; }
+  .feed p { margin: 0 0 0.4rem; font-size: 0.86rem; color: var(--ink2); }
+  .feed .cite { font-size: 0.74rem; color: var(--muted); }
+  .ask { display: inline-block; background: var(--wash); color: var(--accent-deep); font-size: 0.78rem;
+    font-weight: 600; border-radius: 6px; padding: 4px 10px; margin-top: 2px; }
+  .ring { position: relative; width: 74px; height: 74px; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .pct { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 700;
+    font-size: 1rem; font-variant-numeric: tabular-nums; }
+  #tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg);
+    font-size: 0.75rem; font-weight: 600; padding: 4px 9px; border-radius: 6px; opacity: 0;
+    transition: opacity 0.12s; z-index: 50; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  @media (prefers-reduced-motion: reduce) { #tip { transition: none; } }
+  .pt { cursor: pointer; }
+  footer { margin-top: 2.5rem; font-size: 0.76rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 1rem; }
+</style>
+</head>
+<body>
+
+<div id="tip" role="tooltip"></div>
+<div class="wrap">
+  <p class="demo-note">CONCEPT DEMO · illustrative data modeled on a real recovery journey · every number would come from the family's own reports</p>
+  <header class="top">
+    <div class="logo">NURA</div>
+    <div class="fam" aria-label="Family members">
+      <div class="avatar active" title="Neelam — viewing">N</div>
+      <div class="avatar" title="Vikram">V</div>
+      <div class="avatar" title="Add family member">+</div>
+    </div>
+  </header>
+
+  <h1>Neelam</h1>
+  <p class="sub">Day <b>160</b> of recovery · 57 years · 4 stents (Mar 2026) · next consultation: <b>Cardiology, Aug 18</b> — prep sheet ready</p>
+
+  <!-- HERO -->
+  <div class="grid hero">
+    <div class="card">
+      <div class="k">Biological age · PhenoAge</div>
+      <div class="big">63.1 <small>yrs</small></div>
+      <div class="delta-good">▼ 3.1 years since discharge</div>
+      <svg viewBox="0 0 220 56" aria-label="Biological age falling from 66.2 to 63.1 over five months">
+        <polyline points="10,14 80,22 150,30 210,44" fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <circle cx="210" cy="44" r="4" fill="var(--accent)"/>
+        <text x="10" y="10" font-size="9" fill="var(--muted)">66.2 · Mar</text>
+        <text x="208" y="38" font-size="9" fill="var(--muted)" text-anchor="end">63.1 · Aug</text>
+      </svg>
+      <div class="figcap">Computed from 9 values already on her routine panels. Chronological age: 57 — the gap is closing.</div>
+    </div>
+    <div class="card">
+      <div class="k">What matters this week</div>
+      <div style="font-size:1.05rem; font-weight:650; margin:0.4rem 0 0.5rem; line-height:1.35;">Cholesterol is 3 points from its post-stent target. One conversation could close it.</div>
+      <p style="font-size:0.86rem; color:var(--ink2); margin:0 0 0.6rem;">LDL is 58; after a stent the evidence-backed goal is <b>below 55</b> — stricter than the "normal" on the lab printout. Everything else is moving the right way.</p>
+      <span class="ask">Ask on Aug 18 → "Is a dose adjustment worth it to get under 55?"</span><br>
+      <span class="ask" style="margin-top:6px;">Also ask → "Should we test hs-CRP? It's never been checked."</span>
+    </div>
+    <div class="card">
+      <div class="k">Data strength · how well NURA can see</div>
+      <svg viewBox="0 0 250 132" aria-label="Data strength per body system: heart strong, kidneys strong, blood good, sugar moderate, inflammation not yet tested">
+        <g font-size="10.5" fill="var(--ink2)">
+          <text x="0" y="14">Heart</text>       <rect x="78" y="6"  width="140" height="8" rx="4" fill="var(--line)"/><rect x="78" y="6"  width="126" height="8" rx="4" fill="var(--accent)"/><text x="224" y="14" fill="var(--muted)">8 rpts</text>
+          <text x="0" y="38">Kidneys</text>     <rect x="78" y="30" width="140" height="8" rx="4" fill="var(--line)"/><rect x="78" y="30" width="112" height="8" rx="4" fill="var(--accent)"/><text x="224" y="38" fill="var(--muted)">6</text>
+          <text x="0" y="62">Blood</text>       <rect x="78" y="54" width="140" height="8" rx="4" fill="var(--line)"/><rect x="78" y="54" width="98"  height="8" rx="4" fill="var(--accent)"/><text x="224" y="62" fill="var(--muted)">6</text>
+          <text x="0" y="86">Liver</text>       <rect x="78" y="78" width="140" height="8" rx="4" fill="var(--line)"/><rect x="78" y="78" width="84"  height="8" rx="4" fill="var(--accent)"/><text x="224" y="86" fill="var(--muted)">5</text>
+          <text x="0" y="110">Sugar</text>      <rect x="78" y="102" width="140" height="8" rx="4" fill="var(--line)"/><rect x="78" y="102" width="56" height="8" rx="4" fill="var(--accent)"/><text x="224" y="110" fill="var(--muted)">4</text>
+          <text x="0" y="130" fill="var(--serious)" font-weight="600">Inflammation</text><rect x="78" y="122" width="140" height="8" rx="4" fill="none" stroke="var(--serious)" stroke-dasharray="3 3"/><text x="224" y="130" fill="var(--serious)" font-weight="600">0 ⚠</text>
+        </g>
+      </svg>
+      <div class="figcap">The dashed row is a <b>blind spot</b> — a marker the evidence says matters, with zero data. NURA shows what it <em>can't</em> see, so the family can fix it with one test.</div>
+    </div>
+  </div>
+
+  <!-- BODY MAP + SYSTEMS -->
+  <section>
+    <h2>The whole picture <span>six systems, one person — status shown by icon + label, never colour alone</span></h2>
+    <div class="grid cols-2">
+      <div class="card" style="display:grid; place-items:center;">
+        <svg viewBox="0 0 220 330" aria-label="Body map: heart on track, kidneys recovered, liver clear, blood watch, sugar in optimal band, inflammation unknown" style="max-width:230px">
+          <g fill="none" stroke="var(--axis)" stroke-width="1.6">
+            <circle cx="110" cy="36" r="22"/>
+            <path d="M 84 70 C 78 74 74 82 74 92 L 74 176 C 74 190 80 198 90 202 L 90 268 C 90 292 96 306 99 312 M 121 312 C 124 306 130 292 130 268 L 130 202 C 140 198 146 190 146 176 L 146 92 C 146 82 142 74 136 70 Z"/>
+            <path d="M 74 96 C 58 102 50 122 48 142 M 146 96 C 162 102 170 122 172 142"/>
+          </g>
+          <g>
+            <circle cx="100" cy="106" r="7" fill="var(--good)"/>
+            <line x1="93" y1="106" x2="30" y2="106" stroke="var(--line)"/>
+            <text x="2" y="100" font-size="9.5" fill="var(--ink2)">Heart</text>
+            <text x="2" y="111" font-size="8.5" fill="var(--good-ink)">✓ on track</text>
+            <circle cx="128" cy="150" r="6" fill="var(--good)"/>
+            <circle cx="92" cy="150" r="6" fill="var(--good)"/>
+            <line x1="134" y1="150" x2="192" y2="150" stroke="var(--line)"/>
+            <text x="196" y="144" font-size="9.5" fill="var(--ink2)" text-anchor="start"></text>
+            <text x="150" y="138" font-size="9.5" fill="var(--ink2)">Kidneys</text>
+            <text x="150" y="166" font-size="8.5" fill="var(--good-ink)">✓ recovered</text>
+            <circle cx="122" cy="132" r="6" fill="var(--good)"/>
+            <line x1="128" y1="132" x2="176" y2="118" stroke="var(--line)"/>
+            <text x="178" y="114" font-size="9.5" fill="var(--ink2)">Liver ✓</text>
+            <circle cx="63" cy="180" r="6" fill="var(--warn)"/>
+            <line x1="57" y1="180" x2="26" y2="192" stroke="var(--line)"/>
+            <text x="2" y="204" font-size="9.5" fill="var(--ink2)">Blood</text>
+            <text x="2" y="215" font-size="8.5" fill="var(--warn)">◔ watch</text>
+            <circle cx="110" cy="160" r="6" fill="var(--good)"/>
+            <line x1="110" y1="167" x2="110" y2="238" stroke="var(--line)"/>
+            <text x="96" y="250" font-size="9.5" fill="var(--ink2)">Sugar ✓</text>
+            <circle cx="110" cy="88" r="6" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="2.5 2.5"/>
+            <line x1="116" y1="86" x2="176" y2="72" stroke="var(--line)"/>
+            <text x="178" y="66" font-size="9.5" fill="var(--muted)">Inflammation</text>
+            <text x="178" y="77" font-size="8.5" fill="var(--muted)">? not tested</text>
+          </g>
+        </svg>
+      </div>
+      <div class="grid cards-3">
+        <div class="card syscard">
+          <div class="head"><span class="nm">Heart</span><span class="chip good">on track</span></div>
+          <div class="kv"><span class="v">58</span><span class="u">LDL mg/dL · target &lt;55</span></div>
+          <svg viewBox="0 0 110 26" aria-hidden="true"><polyline points="4,5 30,10 56,15 82,20 106,21" fill="none" stroke="var(--data)" stroke-width="2"/><circle cx="106" cy="21" r="3" fill="var(--data)"/></svg>
+          <div class="insight">Down 60 points in 5 months. 3 from target — see this week's ask.</div>
+          <div class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><span>8 reports · 4d ago</span></div>
+        </div>
+        <div class="card syscard">
+          <div class="head"><span class="nm">Kidneys</span><span class="chip good">recovered</span></div>
+          <div class="kv"><span class="v">0.98</span><span class="u">creatinine mg/dL</span></div>
+          <svg viewBox="0 0 110 26" aria-hidden="true"><polyline points="4,18 30,4 56,10 82,15 106,17" fill="none" stroke="var(--data)" stroke-width="2"/><circle cx="106" cy="17" r="3" fill="var(--data)"/></svg>
+          <div class="insight">Fully back from the post-angiography spike. Next routine check due in ~3 weeks.</div>
+          <div class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><span>6 reports · 4d ago</span></div>
+        </div>
+        <div class="card syscard">
+          <div class="head"><span class="nm">Blood</span><span class="chip watch">watch</span></div>
+          <div class="kv"><span class="v">11.2</span><span class="u">haemoglobin g/dL</span></div>
+          <svg viewBox="0 0 110 26" aria-hidden="true"><polyline points="4,6 38,11 72,16 106,20" fill="none" stroke="var(--data)" stroke-width="2"/><circle cx="106" cy="20" r="3" fill="var(--data)"/></svg>
+          <div class="insight">Drifting down 3 tests in a row while on blood thinners — flagged for the Aug 18 visit.</div>
+          <div class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><span>6 reports · 4d ago</span></div>
+        </div>
+        <div class="card syscard">
+          <div class="head"><span class="nm">Liver &amp; gallbladder</span><span class="chip good">clear</span></div>
+          <div class="kv"><span class="v">31</span><span class="u">ALT U/L · GGT normal</span></div>
+          <svg viewBox="0 0 110 26" aria-hidden="true"><polyline points="4,8 30,14 56,12 82,16 106,15" fill="none" stroke="var(--data)" stroke-width="2"/><circle cx="106" cy="15" r="3" fill="var(--data)"/></svg>
+          <div class="insight">Statin is being handled well — enzymes steady, far below the 3× action line.</div>
+          <div class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><span>5 reports · 34d ago</span></div>
+        </div>
+        <div class="card syscard">
+          <div class="head"><span class="nm">Sugar</span><span class="chip good">optimal band</span></div>
+          <div class="kv"><span class="v">6.3<span style="font-size:0.85rem">%</span></span><span class="u">HbA1c · band 5.5–6.5</span></div>
+          <svg viewBox="0 0 110 26" aria-hidden="true"><polyline points="4,5 38,12 72,16 106,18" fill="none" stroke="var(--data)" stroke-width="2"/><circle cx="106" cy="18" r="3" fill="var(--data)"/></svg>
+          <div class="insight">Inside the post-heart-attack sweet spot — stability matters more than going lower.</div>
+          <div class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><span>4 reports · 34d ago</span></div>
+        </div>
+        <div class="card syscard">
+          <div class="head"><span class="nm">Inflammation</span><span class="chip unknown">not yet tested</span></div>
+          <div class="kv"><span class="v" style="color:var(--muted)">—</span><span class="u">hs-CRP</span></div>
+          <svg viewBox="0 0 110 26" aria-hidden="true"><line x1="4" y1="14" x2="106" y2="14" stroke="var(--axis)" stroke-width="1.5" stroke-dasharray="4 4"/></svg>
+          <div class="insight">The strongest post-attack risk predictor in recent research — one ₹400 test fills this blind spot.</div>
+          <div class="strength"><i></i><i></i><i></i><i></i><i></i><span>0 reports</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRENDS -->
+  <section>
+    <h2>Trends that tell the story <span>hover any point · shaded zones are the evidence-backed targets</span></h2>
+    <div class="grid charts-2">
+      <div class="card">
+        <div class="k">LDL cholesterol · mg/dL</div>
+        <svg viewBox="0 0 560 232" aria-label="LDL falling from 118 in March to 58 in August, approaching the under-55 target zone">
+          <rect x="50" y="173" width="496" height="37" fill="var(--band)"/>
+          <text x="540" y="186" font-size="10.5" fill="var(--accent-deep)" text-anchor="end" font-weight="600">post-stent target &lt;55</text>
+          <g stroke="var(--grid)"><line x1="50" y1="61" x2="546" y2="61"/><line x1="50" y1="117" x2="546" y2="117"/><line x1="50" y1="173" x2="546" y2="173"/></g>
+          <line x1="50" y1="210" x2="546" y2="210" stroke="var(--axis)"/>
+          <g font-size="10.5" fill="var(--muted)"><text x="44" y="65" text-anchor="end">118</text><text x="44" y="121" text-anchor="end">86</text><text x="44" y="177" text-anchor="end">55</text></g>
+          <polyline points="70,61 180,107 290,139 400,159 510,168" fill="none" stroke="var(--data)" stroke-width="2"/>
+          <g fill="var(--data)">
+            <circle class="pt" cx="70" cy="61" r="8" fill-opacity="0" data-tip="12 Mar · 118 (admission)"/><circle cx="70" cy="61" r="3.5"/>
+            <circle class="pt" cx="180" cy="107" r="8" fill-opacity="0" data-tip="10 Apr · 92"/><circle cx="180" cy="107" r="3.5"/>
+            <circle class="pt" cx="290" cy="139" r="8" fill-opacity="0" data-tip="22 May · 74"/><circle cx="290" cy="139" r="3.5"/>
+            <circle class="pt" cx="400" cy="159" r="8" fill-opacity="0" data-tip="2 Jul · 63"/><circle cx="400" cy="159" r="3.5"/>
+            <circle class="pt" cx="510" cy="168" r="8" fill-opacity="0" data-tip="5 Aug · 58"/><circle cx="510" cy="168" r="4.5"/>
+          </g>
+          <text x="510" y="153" font-size="11" fill="var(--ink)" text-anchor="middle" font-weight="650">58</text>
+          <g font-size="10.5" fill="var(--muted)"><text x="70" y="226" text-anchor="middle">Mar</text><text x="180" y="226" text-anchor="middle">Apr</text><text x="290" y="226" text-anchor="middle">May</text><text x="400" y="226" text-anchor="middle">Jul</text><text x="510" y="226" text-anchor="middle">Aug</text></g>
+        </svg>
+        <div class="figcap">Why &lt;55 and not the lab's "&lt;100 normal": after a stent the guideline target is stricter — most families never learn this. <span class="gradeA">A</span></div>
+      </div>
+      <div class="card">
+        <div class="k">Creatinine (kidney) · mg/dL</div>
+        <svg viewBox="0 0 560 232" aria-label="Creatinine spiked to 1.38 after angiography dye, then recovered to 0.98 over five months">
+          <rect x="50" y="131" width="496" height="79" fill="var(--band)"/>
+          <text x="540" y="145" font-size="10.5" fill="var(--accent-deep)" text-anchor="end" font-weight="600">her normal zone</text>
+          <g stroke="var(--grid)"><line x1="50" y1="67" x2="546" y2="67"/><line x1="50" y1="131" x2="546" y2="131"/></g>
+          <line x1="50" y1="210" x2="546" y2="210" stroke="var(--axis)"/>
+          <g font-size="10.5" fill="var(--muted)"><text x="44" y="71" text-anchor="end">1.4</text><text x="44" y="135" text-anchor="end">1.1</text><text x="44" y="200" text-anchor="end">0.8</text></g>
+          <polyline points="70,177 180,67 290,113 400,145 510,159" fill="none" stroke="var(--data)" stroke-width="2"/>
+          <g fill="var(--data)">
+            <circle class="pt" cx="70" cy="177" r="8" fill-opacity="0" data-tip="3 Mar · 0.90 (baseline)"/><circle cx="70" cy="177" r="3.5"/>
+            <circle class="pt" cx="180" cy="67" r="8" fill-opacity="0" data-tip="6 Mar · 1.38 — after dye"/><circle cx="180" cy="67" r="3.5"/>
+            <circle class="pt" cx="290" cy="113" r="8" fill-opacity="0" data-tip="20 Mar · 1.18"/><circle cx="290" cy="113" r="3.5"/>
+            <circle class="pt" cx="400" cy="145" r="8" fill-opacity="0" data-tip="10 May · 1.04"/><circle cx="400" cy="145" r="3.5"/>
+            <circle class="pt" cx="510" cy="159" r="8" fill-opacity="0" data-tip="5 Aug · 0.98"/><circle cx="510" cy="159" r="4.5"/>
+          </g>
+          <g font-size="10.5"><text x="180" y="52" text-anchor="middle" fill="var(--serious)" font-weight="650">▲ after angiography dye</text><text x="180" y="64" text-anchor="middle" font-size="9.5" fill="var(--muted)">a known, watchable effect</text></g>
+          <g font-size="10.5" fill="var(--muted)"><text x="70" y="226" text-anchor="middle">Mar 3</text><text x="180" y="226" text-anchor="middle">Mar 6</text><text x="290" y="226" text-anchor="middle">Mar 20</text><text x="400" y="226" text-anchor="middle">May</text><text x="510" y="226" text-anchor="middle">Aug</text></g>
+        </svg>
+        <div class="figcap">This spike is why guidelines say: test kidneys 2–3 days after any dye procedure. NURA schedules that test automatically. <span class="gradeA">A</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE -->
+  <section>
+    <h2>The daily loop <span>captured in under 60 seconds a day on WhatsApp — later, straight from the watch</span></h2>
+    <div class="grid life-4">
+      <div class="card" style="display:flex; gap:14px; align-items:center;">
+        <div class="ring">
+          <svg viewBox="0 0 74 74" aria-label="Medicines taken 96 percent of days"><circle cx="37" cy="37" r="31" fill="none" stroke="var(--line)" stroke-width="7"/><circle cx="37" cy="37" r="31" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-dasharray="187 195" /></svg>
+          <div class="pct">96%</div>
+        </div>
+        <div><div class="k">Medicines</div><div style="font-size:0.85rem; color:var(--ink2); margin-top:4px;">29 of 30 days · the single habit the whole regimen depends on</div></div>
+      </div>
+      <div class="card">
+        <div class="k">Walking · last 14 days</div>
+        <svg viewBox="0 0 220 74" aria-label="Daily steps rising from about 3000 to 5400 across two weeks">
+          <g fill="var(--data)">
+            <rect class="pt" data-tip="2,850 steps" x="6" y="44" width="10" height="24" rx="2"/><rect class="pt" data-tip="3,100 steps" x="21" y="42" width="10" height="26" rx="2"/><rect class="pt" data-tip="0 — rest day" x="36" y="66" width="10" height="2" rx="1" fill="var(--line)"/><rect class="pt" data-tip="3,600 steps" x="51" y="38" width="10" height="30" rx="2"/><rect class="pt" data-tip="3,900 steps" x="66" y="35" width="10" height="33" rx="2"/><rect class="pt" data-tip="4,100 steps" x="81" y="33" width="10" height="35" rx="2"/><rect class="pt" data-tip="4,000 steps" x="96" y="34" width="10" height="34" rx="2"/><rect class="pt" data-tip="4,450 steps" x="111" y="30" width="10" height="38" rx="2"/><rect class="pt" data-tip="4,700 steps" x="126" y="28" width="10" height="40" rx="2"/><rect class="pt" data-tip="4,600 steps" x="141" y="29" width="10" height="39" rx="2"/><rect class="pt" data-tip="5,000 steps" x="156" y="25" width="10" height="43" rx="2"/><rect class="pt" data-tip="5,200 steps" x="171" y="23" width="10" height="45" rx="2"/><rect class="pt" data-tip="5,150 steps" x="186" y="24" width="10" height="44" rx="2"/><rect class="pt" data-tip="5,400 steps" x="201" y="21" width="10" height="47" rx="2"/>
+          </g>
+        </svg>
+        <div class="figcap"><b style="color:var(--good-ink)">9-day streak.</b> Every +1,000 steps ≈ 15% lower mortality risk. <span class="gradeA">A</span></div>
+      </div>
+      <div class="card">
+        <div class="k">Home BP · weekly average</div>
+        <div class="kv"><span class="v">126/80</span><span class="u">target &lt;130/80</span></div>
+        <svg viewBox="0 0 220 40" aria-hidden="true"><polyline points="10,8 76,14 142,24 210,28" fill="none" stroke="var(--data)" stroke-width="2"/><circle cx="210" cy="28" r="3.5" fill="var(--data)"/><text x="10" y="38" font-size="9" fill="var(--muted)">138/86 · 4 wks ago</text></svg>
+        <div class="figcap">Weekly average is the datum — single readings mislead.</div>
+      </div>
+      <div class="card">
+        <div class="k">Weight · fluid check</div>
+        <div class="kv"><span class="v">64.2</span><span class="u">kg · steady</span></div>
+        <svg viewBox="0 0 220 40" aria-hidden="true"><polyline points="10,20 60,21 110,19 160,20 210,20" fill="none" stroke="var(--data)" stroke-width="2"/><circle cx="210" cy="20" r="3.5" fill="var(--data)"/></svg>
+        <div class="figcap">Alarm rule: +2 kg in 3 days = call the doctor — often days ahead of symptoms.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHT FEED -->
+  <section class="feed">
+    <h2>Insights <span>every card shows its evidence grade and source — trust has receipts</span></h2>
+    <div class="card">
+      <div class="t"><span class="gradeA">A</span> &nbsp;Cholesterol: 3 points from the finish line</div>
+      <p>LDL has fallen 118 → 58 in five months — excellent. The post-stent evidence target is &lt;55 with a ≥50% drop from baseline (achieved). Guidelines suggest options exist if the last gap won't close on the current dose.</p>
+      <span class="ask">For Aug 18: "Do we adjust anything to get under 55, or hold?"</span>
+      <div class="cite" style="margin-top:6px;">ESC/EAS 2025 focused update · ACC/AHA 2026 dyslipidemia guideline</div>
+    </div>
+    <div class="card">
+      <div class="t"><span class="gradeB">B</span> &nbsp;Haemoglobin: a slow drift worth naming</div>
+      <p>11.2 g/dL, down across three tests while on dual blood thinners. Usually nutritional — but on these medicines a slow bleed must be ruled out. Not urgent; not ignorable.</p>
+      <span class="ask">For Aug 18: "Hb is trending down — do we need iron studies or a bleeding check?"</span>
+      <div class="cite" style="margin-top:6px;">Anemia in elderly CVD cohorts · NHANES HALP analyses</div>
+    </div>
+    <div class="card">
+      <div class="t"><span class="gradeA">A</span> &nbsp;The missing test: hs-CRP</div>
+      <p>In 31,000 statin-treated patients, inflammation predicted death better than remaining cholesterol — and it has never been measured here. One inexpensive add-on to the next blood draw fills NURA's only blind spot on this profile.</p>
+      <span class="ask">For Aug 18: "Can we add hs-CRP to the next panel?"</span>
+      <div class="cite" style="margin-top:6px;">Ridker et al., The Lancet 2023 · Eur J Prev Cardiol 2026</div>
+    </div>
+  </section>
+
+  <footer>
+    NURA explains and prepares — it never diagnoses, prescribes, or changes treatment. Every insight above ends at the doctor's desk, by design. · Concept demo, August 2026. Illustrative values; in the product every number is extracted from the family's own uploaded reports, every claim from the evidence compendium with its citation.
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var tip = document.getElementById('tip');
+    document.addEventListener('mouseover', function (e) {
+      var t = e.target.closest('.pt');
+      if (!t) { tip.style.opacity = 0; return; }
+      tip.textContent = t.getAttribute('data-tip');
+      tip.style.opacity = 1;
+    });
+    document.addEventListener('mousemove', function (e) {
+      if (tip.style.opacity == 1) {
+        tip.style.left = (e.clientX + 12) + 'px';
+        tip.style.top = (e.clientY - 30) + 'px';
+      }
+    });
+    document.addEventListener('mouseout', function (e) {
+      if (e.target.closest && e.target.closest('.pt')) tip.style.opacity = 0;
+    });
+  })();
+</script>
+</body>
+</html>
